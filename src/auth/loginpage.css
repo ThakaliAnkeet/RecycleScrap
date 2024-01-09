@@ -1,0 +1,91 @@
+/* loginpage.css */
+body{
+  font-family:sans-serif ;
+  overflow-y: hidden;
+  user-select: none;
+}
+.login-page{
+  height: 48pc;
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(to right, #5ddc85, #f1f2dc);
+}
+.login-container {
+  max-width: 400px;
+  margin: 10pc auto;
+  padding: 20px;
+  box-shadow: 8px 1px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  background-color: #b8e8ba;
+}
+
+.login {
+  text-align: center;
+  color: #ffffffd4; /* Google Blue */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-label,
+.password-label {
+  margin-bottom: 6px;
+  color: #ffffffd4;
+}
+
+.login-email,
+.login-password {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.forgot-password,
+.create-account {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.login-button {
+  margin-top: 10px;
+  background-color: #2ebe68;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-button:hover {
+  background-color: #4bd081; /* Darker Google Blue */
+}
+.custom-link{
+  text-decoration: none;
+  color: #2ebe68;
+}
+.custom-link:hover{
+  color: #5ddc85;
+}
+.password-input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.login-password {
+  flex: 1;
+  padding-right: 30px; /* Adjust as needed for spacing */
+}
+
+.eye-icon {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.login-error{
+  color:rgb(239, 43, 43)
+}
