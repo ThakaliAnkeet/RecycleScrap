@@ -1,9 +1,10 @@
 import React from "react";
+import NavBar from "../navigationbar/navigationbar";
 
 const Homepage=()=>{
     return(
-        <div>
-            <h1>Homepage</h1>
+        <div className="landing-page">
+            <NavBar/>
         </div>
     )
 }

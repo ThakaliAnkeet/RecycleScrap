@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Homepage from '../homepage/homepage';
+import './navigationbar.css'
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -25,7 +27,7 @@ const NavBar = () => {
           </li>
         </ul>
       </nav>
-      {activeTab === 'home' && <div>Home Content</div>}
+      {activeTab === 'home' && <div>Home</div>}
       {activeTab === 'about' && <div>About Content</div>}
       {activeTab === 'products' && <div>Products Content</div>}
       {activeTab === 'contact' && <div>Contact Content</div>}
