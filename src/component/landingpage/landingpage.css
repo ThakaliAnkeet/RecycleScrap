@@ -1,13 +1,12 @@
-/* homepage.css */
+/* landingpage.css */
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f8f8f8; /* Background color for the entire page */
   }
   
-  .home-page {
+  .landing-page {
     text-align: center;
     padding: 20px;
   }
@@ -22,31 +21,28 @@ body {
     margin: 0;
   }
   
-  .quick-actions {
+  .features {
     display: flex;
     justify-content: space-around;
     margin: 30px 0;
   }
   
-  .action-button {
-    text-decoration: none;
-    background-color: #2ebe68; 
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  .action-button:hover{
-    background-color: #0c9f47;
+  .feature {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 0 10px;
   }
   
-  .recent-activity,
-  .personal-recommendations,
-  .notifications,
-  .account-management,
-  .community-highlights,
-  .educational-content,
-  .logout-option {
-    margin: 20px 0;
+  .creator-section {
+    background-color: #f4f4f4; /* Background color for the creator section */
+    padding: 20px;
+  }
+  
+  .register-section {
+    background-color: #e6e6e6; /* Background color for the registration section */
+    padding: 20px;
   }
   
   footer {
