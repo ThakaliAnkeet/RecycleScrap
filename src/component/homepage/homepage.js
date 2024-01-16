@@ -6,6 +6,7 @@ import './homepage.css';
 
 function HomePage() {
   return (
+    <div className='homepage-container'>
     <div className="home-page">
       <header>
         <h1>Welcome Back!</h1>
@@ -44,6 +45,7 @@ function HomePage() {
         {/* Provide tips, guides, or educational content related to recycling and sustainability */}
       </section>
 
+    </div>
       <footer>
         <p>&copy; 2024 Recycle Scrap. All rights reserved.</p>
       </footer>

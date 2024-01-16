@@ -1,6 +1,6 @@
 /* Add this to your existing CSS or create a new stylesheet */
 .register-page{
-  height:48pc;
+  height:50pc;
   display: flex;
   flex-direction: row;
   background: linear-gradient(to right, #5ddc85, #f1f2dc);

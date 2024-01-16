@@ -6,6 +6,7 @@ import './landingpage.css';
 
 function LandingPage() {
   return (
+    <div className='landing-container'>
     <div className="landing-page">
       <header>
         <h1>Recycle Scrap</h1>
@@ -36,9 +37,10 @@ function LandingPage() {
 
       <section className="register-section">
         <h2>Join Us Today!</h2>
-        <p>Ready to get started? <Link to="/register">Register Now</Link></p>
+        <p>Ready to get started? <Link className='custom-link' to="/register">Register Now</Link></p>
       </section>
 
+    </div>
       <footer>
         <p>&copy; 2024 Recycle Scrap. All rights reserved.</p>
       </footer>

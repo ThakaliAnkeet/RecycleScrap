@@ -5,7 +5,9 @@ body {
     padding: 0;
     font-family: 'Arial', sans-serif;
   }
-  
+  .landing-container{
+    text-align: center;
+  }
   .landing-page {
     text-align: center;
     padding: 20px;
