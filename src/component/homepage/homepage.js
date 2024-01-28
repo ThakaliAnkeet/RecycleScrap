@@ -17,6 +17,9 @@ function HomePage() {
         <Link to="/buy-scrap" className="action-button">
           Buy Scrap
         </Link>
+        <Link to="/sell-scrap" className="action-button">
+          Sell Scrap
+        </Link>
         <Link to="/sell-creations" className="action-button">
           Sell Creations
         </Link>

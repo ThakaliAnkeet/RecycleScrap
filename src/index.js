@@ -5,9 +5,9 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import RegisterPage from './auth/registerpage';
 import LoginPage from './auth/loginpage';
-import Homepage from './component/homepage/homepage';
 import NavBar from './component/navigationbar/navigationbar';
 import LandingPage from './component/landingpage/landingpage';
+import SellScrapPage from './component/homepage/scrap/sellscrap';
 
 const App = () => {
   return (
@@ -17,6 +17,7 @@ const App = () => {
       <Route path="/home" element={<NavBar />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/sell-scrap" element={<SellScrapPage />} />
       </Routes>
     </BrowserRouter>
   );

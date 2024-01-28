@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc,setDoc,doc } from "firebase/firestore";
+import {getStorage} from 'firebase/storage'
 import { sha256 } from "js-sha256";
 
 const firebaseConfig = {
@@ -18,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
@@ -57,5 +59,4 @@ const loginWithEmailAndPassword = async (email, password) => {
     throw error;
   }
 };
-
-export { registerWithEmailAndPassword, loginWithEmailAndPassword };
+export { storage,auth,firestore,registerWithEmailAndPassword, loginWithEmailAndPassword };
