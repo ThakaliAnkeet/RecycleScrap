@@ -8,6 +8,9 @@ import LoginPage from './auth/loginpage';
 import NavBar from './component/navigationbar/navigationbar';
 import LandingPage from './component/landingpage/landingpage';
 import SellScrapPage from './component/homepage/scrap/sellscrap';
+import SellDIYPage from './component/homepage/diy/selldiy';
+import BuyScrapPage from './component/homepage/scrap/buyscrap';
+import BuyDiyPage from './component/homepage/diy/buydiy';
 
 const App = () => {
   return (
@@ -18,6 +21,10 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/sell-scrap" element={<SellScrapPage />} />
+        <Route path="/sell-diy" element={<SellDIYPage />} />
+        <Route path="/buy-scrap" element={<BuyScrapPage />} />
+        <Route path="/buy-diy" element={<BuyDiyPage />} />
+
       </Routes>
     </BrowserRouter>
   );

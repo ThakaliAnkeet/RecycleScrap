@@ -11,7 +11,9 @@ body {
     text-align: center;
     padding: 20px;
   }
-  
+  .home-header{
+    color: white;
+  }
   header {
     background-color: #4CAF50; /* Green color (you can change it to your preferred color) */
     color: white;

@@ -9,7 +9,7 @@ function HomePage() {
     <div className='homepage-container'>
     <div className="home-page">
       <header>
-        <h1>Welcome Back!</h1>
+        <h1 className='home-header'>Welcome Back!</h1>
         <p>Your go-to platform for buying and selling recycled materials</p>
       </header>
 
@@ -20,11 +20,11 @@ function HomePage() {
         <Link to="/sell-scrap" className="action-button">
           Sell Scrap
         </Link>
-        <Link to="/sell-creations" className="action-button">
+        <Link to="/sell-diy" className="action-button">
           Sell Creations
         </Link>
-        <Link to="/explore-creators" className="action-button">
-          Explore DIY Creators
+        <Link to="/buy-diy" className="action-button">
+          Explore DIY Creations
         </Link>
       </section>
 

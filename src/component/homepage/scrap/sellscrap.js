@@ -67,9 +67,9 @@ function SellScrapPage() {
   
         // Generate a random name for the image using current date and time
         const randomName = generateRandomName();
-  
+        const imageName=`${randomName}.${fileExtension}`;
         // Reference to the Firebase Storage path with the file extension
-        const storageRef = ref(storage, `Product_Image/Scraps/${userEmail}/${randomName}.${fileExtension}`);
+        const storageRef = ref(storage, `Product_Image/Scraps/${emailAddress.toLowerCase()}/${randomName}.${fileExtension}`);
         console.log(storageRef);
   
         // Use put method to upload the itemImage to the storageRef
@@ -83,7 +83,7 @@ function SellScrapPage() {
           phoneNumber,
           email:emailAddress.toLowerCase(),
           location,
-          imageUrl:snapshot.metadata.fullPath,
+          imageName,
         };
         await setDoc(scrapDocRef, scrapData);
 
