@@ -11,6 +11,8 @@ import SellScrapPage from './component/homepage/scrap/sellscrap';
 import SellDIYPage from './component/homepage/diy/selldiy';
 import BuyScrapPage from './component/homepage/scrap/buyscrap';
 import BuyDiyPage from './component/homepage/diy/buydiy';
+import ScrapDetailsPage from './component/homepage/scrap/individualscrap';
+import DiyDetailsPage from './component/homepage/diy/individualdiy';
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="/sell-diy" element={<SellDIYPage />} />
         <Route path="/buy-scrap" element={<BuyScrapPage />} />
         <Route path="/buy-diy" element={<BuyDiyPage />} />
+        <Route path="/scrap/:scrapId" element={<ScrapDetailsPage />} />
+        <Route path="/diy/:diyId" element={<DiyDetailsPage />} />
 
       </Routes>
     </BrowserRouter>

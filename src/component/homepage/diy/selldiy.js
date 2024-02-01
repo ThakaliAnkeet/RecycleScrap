@@ -13,6 +13,7 @@ function SellDIYPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [location, setLocation] = useState('');
+  const [price,setPrice]=useState('');
   const [error, setError] = useState('');
 
   const generateRandomName = () => {
@@ -53,6 +54,10 @@ function SellDIYPage() {
         setError('Please enter the location.');
         return;
       }
+      if (!price) {
+        setError('Please enter the price.');
+        return;
+      }
     try {
       const user = auth.currentUser;
       const userEmail = user ? user.email : 'unknown';
@@ -83,7 +88,8 @@ function SellDIYPage() {
           phoneNumber,
           email:emailAddress.toLowerCase(),
           location,
-          imageName
+          imageName,
+          price
         };
         await setDoc(scrapDocRef, scrapData);
 
@@ -127,6 +133,15 @@ function SellDIYPage() {
             className="form-input"
             value={itemDescription}
             onChange={(e) => setItemDescription(e.target.value)}
+          />
+        </label>
+        <label className="form-label">
+          Price:
+          <input
+            type="num"
+            className="form-input"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
         </label>
         <label className="form-label">

@@ -1,0 +1,44 @@
+/* diyDetailsPage.css */
+.diy-details-page {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .diy-details-page h1 {
+    color: #2E7D32; /* Deep green color representing eco-friendliness */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .diy-details-page img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .diy-details-page p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  
+  .diy-details-page p.price {
+    font-size: 1.5em;
+    color: #388E3C; /* A lighter green for price */
+  }
+  
+  .diy-details-page .seller-info {
+    background-color: #e8f5e9; /* Light green background for seller info */
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .diy-details-page .seller-info p {
+    margin: 0;
+  }
