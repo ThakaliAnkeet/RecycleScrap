@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import './selldiy.css';
 import { doc, setDoc } from 'firebase/firestore';
 import {storage,auth,firestore} from '../../../firebase/firebase';
-import {ref,uploadBytes } from 'firebase/storage'
+import {ref,uploadBytes } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
 
 function SellDIYPage() {
   const [itemImage, setItemImage] = useState('');
@@ -16,6 +17,7 @@ function SellDIYPage() {
   const [price,setPrice]=useState('');
   const [error, setError] = useState('');
 
+  const navigate=useNavigate();
   const generateRandomName = () => {
     // Use the current date and time in milliseconds as the random name
     const currentDate = new Date();
@@ -89,12 +91,14 @@ function SellDIYPage() {
           email:emailAddress.toLowerCase(),
           location,
           imageName,
-          price
+          price,
+          ratingAndReview: [],
         };
         await setDoc(scrapDocRef, scrapData);
 
         console.log('diydata',scrapData);
         console.log('diyref',scrapDocRef);
+        navigate('/home')
       } else {
         console.error('Please select an image before submitting.');
       }

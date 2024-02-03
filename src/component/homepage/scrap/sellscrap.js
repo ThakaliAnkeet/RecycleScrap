@@ -5,6 +5,7 @@ import './sellscrap.css';
 import { doc, setDoc } from 'firebase/firestore';
 import {storage,auth,firestore} from '../../../firebase/firebase';
 import {ref,uploadBytes } from 'firebase/storage'
+import { useNavigate } from 'react-router-dom';
 
 function SellScrapPage() {
   const [itemImage, setItemImage] = useState('');
@@ -17,6 +18,7 @@ function SellScrapPage() {
   const [price, setPrice]=useState('');
   const [error, setError] = useState('');
 
+  const navigate=useNavigate();
   const generateRandomName = () => {
     // Use the current date and time in milliseconds as the random name
     const currentDate = new Date();
@@ -90,11 +92,13 @@ function SellScrapPage() {
           location,
           imageName,
           price,
+          ratingAndReview: [],
         };
         await setDoc(scrapDocRef, scrapData);
-
+        
         console.log('scrapsData',scrapData);
         console.log('scrapref',scrapDocRef);
+        navigate('/home');
       } else {
         console.error('Please select an image before submitting.');
       }
