@@ -13,7 +13,8 @@ import BuyScrapPage from './component/homepage/scrap/buyscrap';
 import BuyDiyPage from './component/homepage/diy/buydiy';
 import ScrapDetailsPage from './component/homepage/scrap/individualscrap';
 import DiyDetailsPage from './component/homepage/diy/individualdiy';
-import AddReviewPage from './component/homepage/scrap/addscrapreviewpage';
+import AddScrapReviewPage from './component/homepage/scrap/addscrapreviewpage';
+import AddDiyReviewPage from './component/homepage/diy/addDiyReviewpage';
 
 const App = () => {
   return (
@@ -29,7 +30,9 @@ const App = () => {
         <Route path="/buy-diy" element={<BuyDiyPage />} />
         <Route path="/scrap/:scrapId" element={<ScrapDetailsPage />} />
         <Route path="/diy/:diyId" element={<DiyDetailsPage />} />
-        <Route path='/add-review/:scrapId' element={<AddReviewPage />} />
+        <Route path='/add-scrap-review/:scrapId' element={<AddScrapReviewPage />} />
+        <Route path='/add-diy-review/:diyId' element={<AddDiyReviewPage />} />
+
       </Routes>
     </BrowserRouter>
   );

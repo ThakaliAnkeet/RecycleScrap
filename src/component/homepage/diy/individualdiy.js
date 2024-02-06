@@ -1,13 +1,14 @@
 // diyDetailsPage.js
 import React, { useEffect, useState } from 'react';
 import './individualdiy.css'
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { firestore, storage } from '../../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 
 function DiyDetailsPage() {
   const { diyId } = useParams();
+  const navigate = useNavigate();
   const [diyDetails, setdiyDetails] = useState({});
   const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(true);
@@ -38,21 +39,85 @@ function DiyDetailsPage() {
 
     fetchdiyDetails();
   }, [diyId]);
+  const calculateAverageRating = () => {
+    if (!diyDetails.ratingAndReview || diyDetails.ratingAndReview.length === 0) {
+      return 0;
+    }
 
+    const totalRating = diyDetails.ratingAndReview.reduce((sum, review) => {
+      return sum + parseInt(review.split('-')[1], 10);
+    }, 0);
+
+    return Math.round(totalRating / diyDetails.ratingAndReview.length);
+  };
+
+  const renderStarRating = (rating) => {
+    const filledStars = Array.from({ length: rating }, (_, index) => (
+      <span key={index}>&#9733;</span> // Filled star
+    ));
+    const emptyStars = Array.from({ length: 5 - rating }, (_, index) => (
+      <span key={index}>&#9734;</span> // Empty star
+    ));
+
+    return [...filledStars, ...emptyStars];
+  };
+
+  const handleAddReviewClick = () => {
+    navigate(`/add-diy-review/${diyId}`);
+  };
   if (loading) {
     return <div>Loading...</div>;
+  }
+  if (!diyDetails || Object.keys(diyDetails).length === 0) {
+    return <div>Error: diy details not found</div>;
   }
 
   return (
     <div className="diy-details-page">
-      <h1>{diyDetails.itemTitle}</h1>
-      {imageUrl && <img src={imageUrl} alt={diyDetails.itemTitle} />}
-      <p>{diyDetails.itemDescription}</p>
-      <p>Price: Rs. {diyDetails.price}</p>
-      <p>Seller: {diyDetails.userName}</p>
-      <p>Contact: {diyDetails.phoneNumber}</p>
-      <p>Email: {diyDetails.email}</p>
-      <p>Location: {diyDetails.location}</p>
+      <div className='individual-diy-image'>
+        {imageUrl ? (
+          <img src={imageUrl} alt={diyDetails.itemTitle} />
+        ) : (
+          <p>No Image Available</p>
+        )}
+      </div>
+
+      <div className='diy-details-review'>
+        <div className='diy-details'>
+          <h1>{diyDetails.itemTitle}</h1>
+          <p>{diyDetails.itemDescription}</p>
+          <p>Price: Rs. {diyDetails.price}</p>
+          <p>Seller: {diyDetails.userName}</p>
+          <p>Contact: {diyDetails.phoneNumber}</p>
+          <p>Email: {diyDetails.email}</p>
+          <p>Location: {diyDetails.location}</p>
+        </div>
+        <div className='rating-and-review'>
+          <h2>Rating and Reviews</h2>
+          <p>Average Rating: {renderStarRating(calculateAverageRating())}</p>
+          {diyDetails.ratingAndReview && diyDetails.ratingAndReview.length > 0 ? (
+            <div>
+              <ul className='rating-and-review-list'>
+                {diyDetails.ratingAndReview.map((review, index) => {
+                  const [user, rating, reviewText] = review.split('-');
+                  return (
+                    <li key={index} className='rating-and-review-item'>
+                      <p>User: {user}</p>
+                      <p>Rating: {renderStarRating(parseInt(rating, 10))}</p>
+                      <p>Review: {reviewText}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : (
+            <p className='no-ratings'>No ratings and reviews yet.</p>
+          )}
+          <button className="add-review-button" onClick={handleAddReviewClick}>
+            Add Review and Rating
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

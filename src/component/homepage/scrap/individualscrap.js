@@ -62,7 +62,7 @@ function ScrapDetailsPage() {
   };
 
   const handleAddReviewClick = () => {
-    navigate(`/add-review/${scrapId}`);
+    navigate(`/add-scrap-review/${scrapId}`);
   };
 
   if (loading) {

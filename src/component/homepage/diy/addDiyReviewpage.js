@@ -1,12 +1,12 @@
 // AddReviewPage.js
 import React, { useState } from 'react';
-import './addReviewPage.css';
+import './addDiyReviewpage.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { firestore, auth } from '../../../firebase/firebase';
 import { doc, updateDoc,getDoc } from 'firebase/firestore';
 
-function AddScrapReviewPage() {
-  const { scrapId } = useParams();
+function AddDiyReviewPage() {
+  const { diyId } = useParams();
   const navigate = useNavigate(); // Using useNavigate instead of useHistory
   const [rating, setRating] = useState(0); // 0 initially, as no rating is given
   const [review, setReview] = useState('');
@@ -20,24 +20,24 @@ function AddScrapReviewPage() {
       const user = auth.currentUser;
       const userEmail = user ? user.email : 'unknown';
       const formattedReview = `${userEmail}-${rating}-${review}`;
-      const scrapDocRef = doc(firestore, 'ScrapsData', scrapId);
+      const diyDocRef = doc(firestore, 'DIYData', diyId);
 
-      // Fetch current scrap details to get the existing reviews
-      const scrapSnap = await getDoc(scrapDocRef);
-      if (scrapSnap.exists()) {
-        const currentScrapDetails = scrapSnap.data();
+      // Fetch current diy details to get the existing reviews
+      const diySnap = await getDoc(diyDocRef);
+      if (diySnap.exists()) {
+        const currentdiyDetails = diySnap.data();
         const updatedReviews = [
-          ...currentScrapDetails.ratingAndReview,
+          ...currentdiyDetails.ratingAndReview,
           formattedReview,
         ];
 
         // Update the Firestore document with the new review
-        await updateDoc(scrapDocRef, {
+        await updateDoc(diyDocRef, {
           ratingAndReview: updatedReviews,
         });
 
-        // Redirect back to the scrap details page
-        navigate(`/scrap/${scrapId}`);
+        // Redirect back to the diy details page
+        navigate(`/diy/${diyId}`);
       }
     } catch (error) {
       console.error('Error adding review:', error);
@@ -64,4 +64,4 @@ function AddScrapReviewPage() {
   );
 }
 
-export default AddScrapReviewPage;
+export default AddDiyReviewPage;
