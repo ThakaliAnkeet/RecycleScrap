@@ -1,7 +1,7 @@
 /* Overall page and layout */
 .scrap-details-page {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 20%;
   max-width: 1200px;
   margin: 0 auto;
@@ -11,6 +11,7 @@
 }
 
 .individual-scrap-image {
+  display: flex;
   text-align: center;
   margin-bottom: 20px;
 }

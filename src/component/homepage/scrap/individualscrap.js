@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import './individualscrap.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { firestore, storage } from '../../../firebase/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { firestore, storage,auth } from '../../../firebase/firebase';
+import { doc, getDoc,setDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 
 function ScrapDetailsPage() {
@@ -26,6 +26,7 @@ function ScrapDetailsPage() {
           const imageRef = ref(storage, `Product_Image/Scraps/${data.email}/${data.imageName}`);
           const url = await getDownloadURL(imageRef);
           setImageUrl(url);
+          console.log('indicidual',url)
         } else {
           console.error('No such document!');
         }
@@ -36,6 +37,10 @@ function ScrapDetailsPage() {
     };
 
     fetchScrapDetails();
+    console.log(scrapDetails);
+    const user = auth.currentUser;
+      const userEmail = user ? user.email : 'unknown';
+      console.log(userEmail);
   }, [scrapId]);
 
   const calculateAverageRating = () => {
@@ -52,10 +57,10 @@ function ScrapDetailsPage() {
 
   const renderStarRating = (rating) => {
     const filledStars = Array.from({ length: rating }, (_, index) => (
-      <span key={index}>&#9733;</span> // Filled star
+      <span key={`filled-${index}`}>&#9733;</span> // Unique key for filled stars
     ));
     const emptyStars = Array.from({ length: 5 - rating }, (_, index) => (
-      <span key={index}>&#9734;</span> // Empty star
+      <span key={`empty-${index}`}>&#9734;</span> // Unique key for empty stars
     ));
 
     return [...filledStars, ...emptyStars];
@@ -64,6 +69,23 @@ function ScrapDetailsPage() {
   const handleAddReviewClick = () => {
     navigate(`/add-scrap-review/${scrapId}`);
   };
+  const addToCart = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        // Handle case where user is not logged in
+        return;
+      }
+      
+      const userEmail = user.email;
+      const cartItemDocRef = doc(firestore, 'UserCarts', `${userEmail}-${scrapId}`);
+      await setDoc(cartItemDocRef, { ...scrapDetails, userEmail }); // Include userEmail in the document
+      console.log('Item added to cart successfully!');
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+  };
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -81,9 +103,6 @@ function ScrapDetailsPage() {
         ) : (
           <p>No Image Available</p>
         )}
-      </div>
-
-      <div className='scrap-details-review'>
         <div className='scrap-details'>
           <h1>{scrapDetails.itemTitle}</h1>
           <p>{scrapDetails.itemDescription}</p>
@@ -93,31 +112,34 @@ function ScrapDetailsPage() {
           <p>Email: {scrapDetails.email}</p>
           <p>Location: {scrapDetails.location}</p>
         </div>
-        <div className='rating-and-review'>
-          <h2>Rating and Reviews</h2>
-          <p>Average Rating: {renderStarRating(calculateAverageRating())}</p>
-          {scrapDetails.ratingAndReview && scrapDetails.ratingAndReview.length > 0 ? (
-            <div>
-              <ul className='rating-and-review-list'>
-                {scrapDetails.ratingAndReview.map((review, index) => {
-                  const [user, rating, reviewText] = review.split('-');
-                  return (
-                    <li key={index} className='rating-and-review-item'>
-                      <p>User: {user}</p>
-                      <p>Rating: {renderStarRating(parseInt(rating, 10))}</p>
-                      <p>Review: {reviewText}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <p className='no-ratings'>No ratings and reviews yet.</p>
-          )}
-          <button className="add-review-button" onClick={handleAddReviewClick}>
-            Add Review and Rating
-          </button>
-        </div>
+        <button className="add-to-cart-button" onClick={addToCart}>
+        Add to Cart
+      </button>
+      </div>
+      <div className='rating-and-review'>
+        <h2>Rating and Reviews</h2>
+        <p>Average Rating: {renderStarRating(calculateAverageRating())}</p>
+        {scrapDetails.ratingAndReview && scrapDetails.ratingAndReview.length > 0 ? (
+          <div>
+            <ul className='rating-and-review-list'>
+              {scrapDetails.ratingAndReview.map((review, index) => {
+                const [user, rating, reviewText] = review.split('-');
+                return (
+                  <li key={`review-${index}`} className='rating-and-review-item'> {/* Unique key for each review */}
+                    <p>User: {user}</p>
+                    <p>Rating: {renderStarRating(parseInt(rating, 10))}</p>
+                    <p>Review: {reviewText}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <p className='no-ratings'>No ratings and reviews yet.</p>
+        )}
+        <button className="add-review-button" onClick={handleAddReviewClick}>
+          Add Review and Rating
+        </button>
       </div>
     </div>
   );

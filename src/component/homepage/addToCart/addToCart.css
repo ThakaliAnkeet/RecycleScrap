@@ -1,0 +1,118 @@
+/* addToCart.css */
+
+/* Container for the entire page */
+.add-to-cart-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Title for the page */
+  .page-title {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Container for the cart items */
+  .cart-items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Individual cart item */
+  .cart-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    transition: transform 0.2s ease;
+  }
+  
+  /* Hover effect for cart items */
+  .cart-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Image of the item */
+  .item-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  /* Text styles for item title, description, price, and seller */
+  .item-title {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  
+  .item-description {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .item-price {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .item-seller {
+    font-size: 16px;
+    color: #888;
+  }
+  
+  /* Style for "No Image Available" text */
+  .no-image {
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Item counter */
+  .item-counter {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .counter-btn {
+    padding: 5px 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #ddd;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .counter-btn:hover {
+    background-color: #ccc;
+  }
+  
+  .quantity {
+    margin: 0 10px;
+    font-size: 18px;
+  }
+  
+  /* Checkout button */
+  .checkout-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #0056b3;
+  }
+  

@@ -15,6 +15,7 @@ import ScrapDetailsPage from './component/homepage/scrap/individualscrap';
 import DiyDetailsPage from './component/homepage/diy/individualdiy';
 import AddScrapReviewPage from './component/homepage/scrap/addscrapreviewpage';
 import AddDiyReviewPage from './component/homepage/diy/addDiyReviewpage';
+import AddToCartPage from './component/homepage/addToCart/addToCart';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/diy/:diyId" element={<DiyDetailsPage />} />
         <Route path='/add-scrap-review/:scrapId' element={<AddScrapReviewPage />} />
         <Route path='/add-diy-review/:diyId' element={<AddDiyReviewPage />} />
+        <Route path='/cart' element={<AddToCartPage />} />
 
       </Routes>
     </BrowserRouter>
