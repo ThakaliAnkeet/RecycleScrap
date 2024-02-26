@@ -16,8 +16,6 @@ import DiyDetailsPage from './component/homepage/diy/individualdiy';
 import AddScrapReviewPage from './component/homepage/scrap/addscrapreviewpage';
 import AddDiyReviewPage from './component/homepage/diy/addDiyReviewpage';
 import AddToCartPage from './component/homepage/addToCart/addToCart';
-import PaymentIntegration from './esewa/eswea';
-import ESewaPaymentForm from './esewa/eseewa';
 import CommunityPage from './component/homepage/communityPage/communitypage';
 
 const App = () => {
@@ -37,7 +35,6 @@ const App = () => {
         <Route path='/add-scrap-review/:scrapId' element={<AddScrapReviewPage />} />
         <Route path='/add-diy-review/:diyId' element={<AddDiyReviewPage />} />
         <Route path='/cart' element={<AddToCartPage />} />
-        <Route path='/pay' element={<ESewaPaymentForm />} />
         <Route path='/community' element={<CommunityPage />} />
       </Routes>
     </BrowserRouter>

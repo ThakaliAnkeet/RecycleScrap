@@ -1,19 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import './addToCart.css';
 import { firestore, auth, storage } from '../../../firebase/firebase';
-import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, query, where, getDocs, deleteDoc, doc,getDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
-import GPay from '../gpay/gpay';
+
+import axios from 'axios';
 
 function AddToCartPage() {
+  const [customer,setCustomer]=useState('');
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 
-  const handleCheckout = () => {
-    setShowDialog(true);
+  const handleCheckout = async () => {
+    try {
+      // Fetch user details from Firestore based on email
+      const userRef = doc(firestore, 'Users', customer.email);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        // Calculate total amount
+        const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        
+        // Generate amount breakdown dynamically
+        const amountBreakdown = cartItems.map(item => ({
+          label: item.itemTitle,
+          amount: item.price * item.quantity
+        }));
+        console.log(amountBreakdown);
+        const payload = {
+          return_url: "https://example.com/payment/",
+          website_url: "https://example.com/",
+          amount: totalAmount,
+          purchase_order_id: "test12",
+          purchase_order_name: "test",
+          customer_info: {
+            name: userData.name,
+            email: customer.email,
+            phone: "9844344807"
+          },
+          amount_breakdown: amountBreakdown,
+          product_details: cartItems.map(item => ({
+            identity: item.id,
+            name: item.itemTitle,
+            total_price: item.price * item.quantity,
+            quantity: item.quantity,
+            unit_price: item.price
+          }))
+        };
+        console.log(payload)
+        // Make an HTTP POST request to your server
+        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', payload);
+        console.log(response.data);
+        
+      } else {
+        console.error('User document not found for email:', customer.email);
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
   };
+  
+  
+  
+  
 
   const handlePaymentOptionSelect = (option) => {
     setSelectedPaymentOption(option);
@@ -64,6 +115,8 @@ function AddToCartPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        setCustomer(user);
+        console.log('This is user',user.email);
         try {
           const userEmail = user.email;
           const q = query(collection(firestore, 'UserCarts'), where('userEmail', '==', userEmail));
@@ -130,13 +183,13 @@ function AddToCartPage() {
         <div className="payment-dialog">
           <button className="close-btn" onClick={() => setShowDialog(false)}>Close</button>
           <h2>Select Payment Option</h2>
-          <button className='esewa-button' onClick={() => handlePaymentOptionSelect('googlePay')}>Google Pay</button>
+          <button className='khalti-button' onClick={() => handlePaymentOptionSelect('khalti')}>Khalti</button>
           <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
         </div>
       )}
-      {selectedPaymentOption === 'googlePay' && (
-        <GPay totalPrice={totalAmount} />
-      )}
+      {/* {selectedPaymentOption === 'khalti' && (
+
+      )} */}
     </div>
   );
 }
