@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import HomePage from '../homepage/homepage';
 import AboutPage from '../aboutpage/aboutpage';
 import ProductsPage from '../productpage/productpage';
-import ContactPage from '../contactpage/contactpage';
+// import CartPage from '../Cartpage/Cartpage';
 import './navigationbar.css';
+import AddToCartPage from '../homepage/addToCart/addToCart';
+import CommunityPage from '../homepage/communityPage/communitypage';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -30,10 +32,10 @@ const NavBar = () => {
         return <HomePage />;
       case 'about':
         return <AboutPage />;
-      case 'products':
-        return <ProductsPage />;
-      case 'contact':
-        return <ContactPage />;
+      case 'community':
+        return <CommunityPage />;
+      case 'cart':
+        return <AddToCartPage />;
       default:
         return null;
     }
@@ -49,11 +51,11 @@ const NavBar = () => {
           <li className={activeTab === 'about' ? 'active' : ''} onClick={() => handleTabClick('about')}>
             About
           </li>
-          <li className={activeTab === 'products' ? 'active' : ''} onClick={() => handleTabClick('products')}>
-            Products
+          <li className={activeTab === 'community' ? 'active' : ''} onClick={() => handleTabClick('community')}>
+            Community
           </li>
-          <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => handleTabClick('contact')}>
-            Contact
+          <li className={activeTab === 'cart' ? 'active' : ''} onClick={() => handleTabClick('cart')}>
+            Cart
           </li>
         </ul>
         <div className='avatar-container' onClick={handleMenuToggle}>

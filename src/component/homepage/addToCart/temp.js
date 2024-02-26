@@ -3,13 +3,14 @@ import './addToCart.css';
 import { firestore, auth, storage } from '../../../firebase/firebase';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
-import GPay from '../gpay/gpay';
+import EsewaPayment from '../../../esewa/eswea';
 
 function AddToCartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
+
 
   const handleCheckout = () => {
     setShowDialog(true);
@@ -20,7 +21,6 @@ function AddToCartPage() {
     setShowDialog(false);
     // You can implement further actions based on the selected option
   };
-
   const initializeCartItems = (items) => {
     const initializedItems = items.map((item) => ({
       ...item,
@@ -127,15 +127,15 @@ function AddToCartPage() {
       <p className='total-amount'>Total Amount: Rs. {totalAmount}</p>
       <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
       {showDialog && (
-        <div className="payment-dialog">
-          <button className="close-btn" onClick={() => setShowDialog(false)}>Close</button>
-          <h2>Select Payment Option</h2>
-          <button className='esewa-button' onClick={() => handlePaymentOptionSelect('googlePay')}>Google Pay</button>
-          <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
-        </div>
-      )}
-      {selectedPaymentOption === 'googlePay' && (
-        <GPay totalPrice={totalAmount} />
+  <div className="payment-dialog">
+    <button className="close-btn" onClick={() => setShowDialog(false)}>Close</button>
+    <h2>Select Payment Option</h2>
+    <button className='esewa-button' onClick={() => handlePaymentOptionSelect('eSewa')}>eSewa</button>
+    <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
+  </div>
+)}
+{selectedPaymentOption === 'googlePay' && (
+      <EsewaPayment totalAmount={totalAmount} />
       )}
     </div>
   );

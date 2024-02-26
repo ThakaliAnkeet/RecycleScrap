@@ -111,10 +111,10 @@ function ScrapDetailsPage() {
           <p>Contact: {scrapDetails.phoneNumber}</p>
           <p>Email: {scrapDetails.email}</p>
           <p>Location: {scrapDetails.location}</p>
-        </div>
         <button className="add-to-cart-button" onClick={addToCart}>
         Add to Cart
       </button>
+        </div>
       </div>
       <div className='rating-and-review'>
         <h2>Rating and Reviews</h2>
