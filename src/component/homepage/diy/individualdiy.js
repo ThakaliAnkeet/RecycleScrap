@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import './individualdiy.css'
 import { useParams,useNavigate } from 'react-router-dom';
-import { firestore, storage } from '../../../firebase/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { firestore, storage,auth } from '../../../firebase/firebase';
+import { doc, getDoc,setDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 
 function DiyDetailsPage() {
@@ -39,6 +39,22 @@ function DiyDetailsPage() {
 
     fetchdiyDetails();
   }, [diyId]);
+  const addToCart = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        // Handle case where user is not logged in
+        return;
+      }
+      
+      const userEmail = user.email;
+      const cartItemDocRef = doc(firestore, 'UserCarts', `${userEmail}-${diyId}`);
+      await setDoc(cartItemDocRef, { ...diyDetails, userEmail }); // Include userEmail in the document
+      console.log('Item added to cart successfully!');
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+    }
+  };
   const calculateAverageRating = () => {
     if (!diyDetails.ratingAndReview || diyDetails.ratingAndReview.length === 0) {
       return 0;
@@ -91,6 +107,9 @@ function DiyDetailsPage() {
           <p>Contact: {diyDetails.phoneNumber}</p>
           <p>Email: {diyDetails.email}</p>
           <p>Location: {diyDetails.location}</p>
+          <button className="add-to-cart-button" onClick={addToCart}>
+        Add to Cart
+      </button>
         </div>
         <div className='rating-and-review'>
           <h2>Rating and Reviews</h2>

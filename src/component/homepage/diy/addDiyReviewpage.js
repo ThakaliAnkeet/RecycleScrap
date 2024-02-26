@@ -17,32 +17,39 @@ function AddDiyReviewPage() {
 
   const handleAddReview = async () => {
     try {
-      const user = auth.currentUser;
-      const userEmail = user ? user.email : 'unknown';
-      const formattedReview = `${userEmail}-${rating}-${review}`;
-      const diyDocRef = doc(firestore, 'DIYData', diyId);
+        const user = auth.currentUser;
+        const userEmail = user ? user.email : 'unknown';
+        const formattedReview = `${userEmail}-${rating}-${review}`;
+        const diyDocRef = doc(firestore, 'DIYData', diyId);
 
-      // Fetch current diy details to get the existing reviews
-      const diySnap = await getDoc(diyDocRef);
-      if (diySnap.exists()) {
-        const currentdiyDetails = diySnap.data();
-        const updatedReviews = [
-          ...currentdiyDetails.ratingAndReview,
-          formattedReview,
-        ];
+        // Fetch current diy details to get the existing reviews
+        const diySnap = await getDoc(diyDocRef);
+        if (diySnap.exists()) {
+            const currentDiyDetails = diySnap.data();
+            let updatedReviews = [];
 
-        // Update the Firestore document with the new review
-        await updateDoc(diyDocRef, {
-          ratingAndReview: updatedReviews,
-        });
+            if (currentDiyDetails.ratingAndReview && Array.isArray(currentDiyDetails.ratingAndReview)) {
+                updatedReviews = [
+                    ...currentDiyDetails.ratingAndReview,
+                    formattedReview,
+                ];
+            } else {
+                updatedReviews = [formattedReview];
+            }
 
-        // Redirect back to the diy details page
-        navigate(`/diy/${diyId}`);
-      }
+            // Update the Firestore document with the new review
+            await updateDoc(diyDocRef, {
+                ratingAndReview: updatedReviews,
+            });
+
+            // Redirect back to the diy details page
+            navigate(`/diy/${diyId}`);
+        }
     } catch (error) {
-      console.error('Error adding review:', error);
+        console.error('Error adding review:', error);
     }
 };
+
 
   return (
     <div className="add-review-page">

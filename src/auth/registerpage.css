@@ -1,73 +1,86 @@
 /* Add this to your existing CSS or create a new stylesheet */
-.register-page{
-  height:50pc;
+.register-page {
+  height: 50pc;
   display: flex;
   flex-direction: row;
   background: linear-gradient(to right, #5ddc85, #f1f2dc);
 }
-.register-image{
+
+.register-image {
   width: 50%;
 }
-.register-image img{
+
+.register-image img {
   height: 100%;
   width: 100%;
   object-fit: fill;
 }
+
 .register-container {
-    background-color: #b8e8ba;
-    margin: 10pc auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 8px 1px 8px rgba(0, 0, 0, 0.1);
-    width: 325px;
-    height:485px;
-    text-align: center;
-  }
-  
-  .register-container h2 {
-    color: #ffffffd4;
-  }
-  
-  .register-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .register-container label {
-    margin-top: 9px;
-    font-weight: bold;
-    text-align: left;
-    color: #ffffffd4;
-  }
-  
-  .register-container input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .register-container button {
-    margin-top: 10px;
-    background-color: #2ebe68;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .register-container button:hover {
-    background-color: #4bd081;
-  }
+  background-color: #b8e8ba;
+  margin: 10pc auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 8px 1px 8px rgba(0, 0, 0, 0.1);
+  width: 325px;
+  height: 485px;
+  text-align: center;
+}
+
+.register-container h2 {
+  color: #ffffffd4;
+}
+
+.register-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-container label {
+  margin-top: 9px;
+  font-weight: bold;
+  text-align: left;
+  color: #ffffffd4;
+}
+
+.register-container input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.register-container button {
+  margin-top: 10px;
+  background-color: #2ebe68;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.register-container button:hover {
+  background-color: #4bd081;
+}
 
 .error-message {
-    color: #d9534f;
-    margin-top: 5px;
-    font-size: 14px;
-  }
-    
+  color: #d9534f;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* Additional styles for the role dropdown */
+.register-container select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

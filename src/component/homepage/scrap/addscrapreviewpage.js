@@ -17,32 +17,39 @@ function AddScrapReviewPage() {
 
   const handleAddReview = async () => {
     try {
-      const user = auth.currentUser;
-      const userEmail = user ? user.email : 'unknown';
-      const formattedReview = `${userEmail}-${rating}-${review}`;
-      const scrapDocRef = doc(firestore, 'ScrapsData', scrapId);
+        const user = auth.currentUser;
+        const userEmail = user ? user.email : 'unknown';
+        const formattedReview = `${userEmail}-${rating}-${review}`;
+        const scrapDocRef = doc(firestore, 'ScrapsData', scrapId);
 
-      // Fetch current scrap details to get the existing reviews
-      const scrapSnap = await getDoc(scrapDocRef);
-      if (scrapSnap.exists()) {
-        const currentScrapDetails = scrapSnap.data();
-        const updatedReviews = [
-          ...currentScrapDetails.ratingAndReview,
-          formattedReview,
-        ];
+        // Fetch current scrap details to get the existing reviews
+        const scrapSnap = await getDoc(scrapDocRef);
+        if (scrapSnap.exists()) {
+            const currentScrapDetails = scrapSnap.data();
+            let updatedReviews = [];
 
-        // Update the Firestore document with the new review
-        await updateDoc(scrapDocRef, {
-          ratingAndReview: updatedReviews,
-        });
+            if (currentScrapDetails.ratingAndReview && Array.isArray(currentScrapDetails.ratingAndReview)) {
+                updatedReviews = [
+                    ...currentScrapDetails.ratingAndReview,
+                    formattedReview,
+                ];
+            } else {
+                updatedReviews = [formattedReview];
+            }
 
-        // Redirect back to the scrap details page
-        navigate(`/scrap/${scrapId}`);
-      }
+            // Update the Firestore document with the new review
+            await updateDoc(scrapDocRef, {
+                ratingAndReview: updatedReviews,
+            });
+
+            // Redirect back to the scrap details page
+            navigate(`/scrap/${scrapId}`);
+        }
     } catch (error) {
-      console.error('Error adding review:', error);
+        console.error('Error adding review:', error);
     }
 };
+
 
   return (
     <div className="add-review-page">

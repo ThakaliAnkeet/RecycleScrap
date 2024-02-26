@@ -21,22 +21,20 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password,role) => {
   try {
     // Create user in authentication
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const passwordHash = sha256(password);
-    console.log('User cred:', userCredential);
     // Set the document name as the user's email
     const userDocRef = doc(firestore, "Users", email.toLowerCase());
-    console.log('User doc ref:', userDocRef);
     // Save user data to Firestore with the document name as the user's email
     const userData = {
       name,
       email: email.toLowerCase(),
-      password: passwordHash
+      password: passwordHash,
+      role:role
     };
-    console.log('User data:', userData);
 
     await setDoc(userDocRef, userData);
     console.log(userCredential.user);

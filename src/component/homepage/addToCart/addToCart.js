@@ -15,17 +15,14 @@ function AddToCartPage() {
 
   const handleCheckout = async () => {
     // Calculate total amount
-    console.log('1');
     const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     
     try {
       // Fetch user details from Firestore based on email
       const userRef = doc(firestore, 'Users', customer.email);
       const userDoc = await getDoc(userRef);
-      console.log(userDoc);
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        console.log('This is userData', userData);
         const payload = {
           return_url: 'http://localhost:3000/home',
           website_url:'http://localhost:3000/cart',
@@ -39,10 +36,8 @@ function AddToCartPage() {
           },          
         };
         setCheckoutPayload(payload);
-        console.log(payload)
         // Make an HTTP POST request to your server
         const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
-        console.log(response.data);
         if(response){
           window.location.href=`${response?.data?.data?.payment_url}`
         }
@@ -107,21 +102,34 @@ function AddToCartPage() {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         setCustomer(user);
-        console.log('This is user',user.email);
         try {
           const userEmail = user.email;
           const q = query(collection(firestore, 'UserCarts'), where('userEmail', '==', userEmail));
           const querySnapshot = await getDocs(q);
-
+      
           const items = await Promise.all(querySnapshot.docs.map(async (doc) => {
-            const data = doc.data();
-            const imageRef = ref(storage, `Product_Image/Scraps/${data.email}/${data.imageName}`);
-            const imageUrl = await getDownloadURL(imageRef);
-            return { id: doc.id, ...data, imageUrl };
+              const data = doc.data();
+              const imagePaths = [
+                  `Product_Image/Scraps/${data.email}/${data.imageName}`,
+                  `Product_Image/DIY/${data.email}/${data.imageName}`
+              ];
+              let imageUrl;
+              for (const path of imagePaths) {
+                  const imageRef = ref(storage, path);
+                  try {
+                      imageUrl = await getDownloadURL(imageRef);
+                      // If the image is found, break the loop
+                      break;
+                  } catch (error) {
+                      // If image not found at this path, continue to next path
+                      continue;
+                  }
+              }
+      
+              return { id: doc.id, ...data, imageUrl };
           }));
 
           const initializedItems = initializeCartItems(items); // Initialize items with quantity property
-          console.log('Items:', initializedItems);
           setCartItems(initializedItems);
           setLoading(false);
         } catch (error) {
