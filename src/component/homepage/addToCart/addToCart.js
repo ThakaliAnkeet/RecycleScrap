@@ -5,7 +5,7 @@ import { collection, query, where, getDocs, deleteDoc, doc,getDoc } from 'fireba
 import { getDownloadURL, ref } from 'firebase/storage';
 
 import axios from 'axios';
-
+// require("dotenv").config();
 function AddToCartPage() {
   const [customer,setCustomer]=useState('');
   const [cartItems, setCartItems] = useState([]);
@@ -14,24 +14,20 @@ function AddToCartPage() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
 
   const handleCheckout = async () => {
+    // Calculate total amount
+    const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    
     try {
       // Fetch user details from Firestore based on email
       const userRef = doc(firestore, 'Users', customer.email);
       const userDoc = await getDoc(userRef);
+      console.log(userDoc);
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        // Calculate total amount
-        const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        
-        // Generate amount breakdown dynamically
-        const amountBreakdown = cartItems.map(item => ({
-          label: item.itemTitle,
-          amount: item.price * item.quantity
-        }));
-        console.log(amountBreakdown);
+        console.log('This is userData', userData);
         const payload = {
-          return_url: "https://example.com/payment/",
-          website_url: "https://example.com/",
+          return_url: '/home',
+          website_url:'/cart',
           amount: totalAmount,
           purchase_order_id: "test12",
           purchase_order_name: "test",
@@ -39,21 +35,12 @@ function AddToCartPage() {
             name: userData.name,
             email: customer.email,
             phone: "9844344807"
-          },
-          amount_breakdown: amountBreakdown,
-          product_details: cartItems.map(item => ({
-            identity: item.id,
-            name: item.itemTitle,
-            total_price: item.price * item.quantity,
-            quantity: item.quantity,
-            unit_price: item.price
-          }))
+          },          
         };
         console.log(payload)
         // Make an HTTP POST request to your server
         const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', payload);
         console.log(response.data);
-        
       } else {
         console.error('User document not found for email:', customer.email);
       }
@@ -61,7 +48,6 @@ function AddToCartPage() {
       console.error('Error during checkout:', error);
     }
   };
-  
   
   
   
