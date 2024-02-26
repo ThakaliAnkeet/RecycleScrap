@@ -5,16 +5,17 @@ import { collection, query, where, getDocs, deleteDoc, doc,getDoc } from 'fireba
 import { getDownloadURL, ref } from 'firebase/storage';
 
 import axios from 'axios';
-// require("dotenv").config();
 function AddToCartPage() {
   const [customer,setCustomer]=useState('');
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
+  const [checkoutPayload,setCheckoutPayload]=useState('');
 
   const handleCheckout = async () => {
     // Calculate total amount
+    console.log('1');
     const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     
     try {
@@ -26,9 +27,9 @@ function AddToCartPage() {
         const userData = userDoc.data();
         console.log('This is userData', userData);
         const payload = {
-          return_url: '/home',
-          website_url:'/cart',
-          amount: totalAmount,
+          return_url: 'http://localhost:3000/home',
+          website_url:'http://localhost:3000/cart',
+          amount: totalAmount*100,
           purchase_order_id: "test12",
           purchase_order_name: "test",
           customer_info: {
@@ -37,10 +38,14 @@ function AddToCartPage() {
             phone: "9844344807"
           },          
         };
+        setCheckoutPayload(payload);
         console.log(payload)
         // Make an HTTP POST request to your server
-        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', payload);
+        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
         console.log(response.data);
+        if(response){
+          window.location.href=`${response?.data?.data?.payment_url}`
+        }
       } else {
         console.error('User document not found for email:', customer.email);
       }
