@@ -17,6 +17,9 @@ import AddScrapReviewPage from './component/homepage/scrap/addscrapreviewpage';
 import AddDiyReviewPage from './component/homepage/diy/addDiyReviewpage';
 import AddToCartPage from './component/homepage/addToCart/addToCart';
 import CommunityPage from './component/homepage/communityPage/communitypage';
+import ProfilePage from './component/profilepage/profilepage';
+import EditProfilePage from './component/profilepage/editprofile';
+import OrdersPage from './component/homepage/addToCart/order';
 
 const App = () => {
   return (
@@ -36,6 +39,10 @@ const App = () => {
         <Route path='/add-diy-review/:diyId' element={<AddDiyReviewPage />} />
         <Route path='/cart' element={<AddToCartPage />} />
         <Route path='/community' element={<CommunityPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/edit-profile' element={<EditProfilePage />} />
+        <Route path='/order' element={<OrdersPage />} />
+
       </Routes>
     </BrowserRouter>
   );

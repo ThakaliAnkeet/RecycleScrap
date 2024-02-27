@@ -23,7 +23,7 @@ function HomePage() {
         await getUser();
       }
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, [role]);
 
 

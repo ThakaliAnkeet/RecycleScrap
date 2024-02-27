@@ -1,74 +1,61 @@
-/* Overall page and layout */
+/* individualdiy.css */
+
 .diy-details-page {
   display: flex;
-  flex-direction: row;
-  gap: 20%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
 }
 
 .individual-diy-image {
-  text-align: center;
   margin-bottom: 20px;
 }
 
 .individual-diy-image img {
   max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-/* Loading and error messages */
-.loading, .error {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 50px;
-}
-
-/* Details and review section */
-.diy-details-review {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
+  max-height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .diy-details {
-  flex-basis: 60%;
-  background: #fff;
+  background-color: #f9f9f9;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.add-to-cart-button,
+.add-review-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover,
+.add-review-button:hover {
+  background-color: #45a049;
 }
 
 .rating-and-review {
-  flex-basis: 35%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  margin-top: 20px;
 }
 
-.diy-details h1, .rating-and-review h2 {
-  color: #333;
-  margin-bottom: 15px;
-}
-
-/* Product information */
-.diy-details p {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.6;
+.rating-and-review h2 {
   margin-bottom: 10px;
 }
 
-/* Rating and review styles */
 .rating-and-review-list {
   list-style: none;
-  padding: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
 }
 
 .rating-and-review-item {
@@ -77,39 +64,17 @@
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid black;
-
 }
 
-.rating-and-review-item p {
-  margin: 0 0 5px;
-  color: black;
+.no-ratings {
+  font-style: italic;
+  color: #888;
 }
 
-.add-review-button {
-  display: inline-block;
-  background-color: #4CAF50;
-  color: white;
-  text-align: center;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.star-rating {
+  color: #ffcc00; /* Color for filled stars */
 }
 
-.add-review-button:hover {
-  background-color: #45a049;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .diy-details-review {
-    flex-direction: column;
-  }
-
-  .diy-details, .rating-and-review {
-    flex-basis: 100%;
-  }
+.no-image {
+  color: #888;
 }

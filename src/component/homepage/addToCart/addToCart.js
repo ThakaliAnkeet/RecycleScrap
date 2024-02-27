@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './addToCart.css';
 import { firestore, auth, storage } from '../../../firebase/firebase';
-import { collection, query, where, getDocs, deleteDoc, doc,getDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 
 import axios from 'axios';
+
 function AddToCartPage() {
   const [customer,setCustomer]=useState('');
   const [cartItems, setCartItems] = useState([]);
@@ -13,34 +14,51 @@ function AddToCartPage() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
   const [checkoutPayload,setCheckoutPayload]=useState('');
 
-  const handleCheckout = async () => {
-    // Calculate total amount
+  const handleCheckout = () => {
+    setShowDialog(true);
+  }
+
+  const handleKhalti = async () => {
     const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     
     try {
-      // Fetch user details from Firestore based on email
       const userRef = doc(firestore, 'Users', customer.email);
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const payload = {
           return_url: 'http://localhost:3000/home',
-          website_url:'http://localhost:3000/cart',
-          amount: totalAmount*100,
+          website_url: 'http://localhost:3000/cart',
+          amount: totalAmount * 100,
           purchase_order_id: "test12",
           purchase_order_name: "test",
           customer_info: {
             name: userData.name,
             email: customer.email,
             phone: "9844344807"
-          },          
+          },
         };
         setCheckoutPayload(payload);
-        // Make an HTTP POST request to your server
-        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
-        if(response){
-          window.location.href=`${response?.data?.data?.payment_url}`
-        }
+  
+        let response;
+        let retryCount = 0;
+        const maxRetries = 3;
+        do {
+          try {
+            response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
+            if (response) {
+              window.location.href = `${response?.data?.data?.payment_url}`;
+              // Save order details to Firestore only after successful payment
+              return saveOrderToFirestore('khalti');
+            }
+          } catch (error) {
+            console.error('Error during checkout:', error);
+            retryCount++;
+            console.log(`Retrying (${retryCount}/${maxRetries})...`);
+          }
+        } while (retryCount < maxRetries);
+  
+        console.error('Exceeded maximum retry attempts. Please try again later.');
       } else {
         console.error('User document not found for email:', customer.email);
       }
@@ -50,13 +68,57 @@ function AddToCartPage() {
   };
   
   
-  
-
-  const handlePaymentOptionSelect = (option) => {
+  const handlePaymentOptionSelect = async (option) => {
     setSelectedPaymentOption(option);
     setShowDialog(false);
+    // Save order details to Firestore
+    await saveOrderToFirestore(option);
     // You can implement further actions based on the selected option
+    if(option === 'khalti') {
+      handleKhalti();
+    }
   };
+
+  const saveOrderToFirestore = async (paymentOption) => {
+    try {
+      const userEmail = customer.email;
+      const dateTime = new Date().toISOString();
+      const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const documentId = `${userEmail}-${Date.now()}`;
+  
+      // Extract cart item data for inclusion in the order
+      const cartItemData = cartItems.map(item => ({
+        id: item.id,
+        itemTitle: item.itemTitle,
+        price: item.price,
+        quantity: item.quantity,
+        imageUrl: item.imageUrl,
+      }));
+  
+      const orderData = {
+        userEmail: userEmail,
+        dateTime: dateTime,
+        totalAmount: totalAmount,
+        paymentOption: paymentOption,
+        cartItems: cartItemData // Include cart item data in the order
+      };
+  
+      const orderDocRef = doc(firestore, 'Orders', documentId);
+      await setDoc(orderDocRef, orderData);
+  
+      // Remove cart items from Firestore
+      await Promise.all(cartItems.map(async (item) => {
+        await deleteDoc(doc(firestore, 'UserCarts', item.id));
+      }));
+  
+    } catch (error) {
+      console.error('Error saving order to Firestore:', error);
+    }
+  };
+  
+  
+  
+  
 
   const initializeCartItems = (items) => {
     const initializedItems = items.map((item) => ({

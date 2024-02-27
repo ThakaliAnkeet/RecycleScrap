@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { firestore, storage,auth } from '../../../firebase/firebase';
 import { doc, getDoc,setDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
+import SidebarPageButton from '../../navigationbar/sidebar';
 
 function ScrapDetailsPage() {
   const { scrapId } = useParams();
@@ -97,6 +98,7 @@ function ScrapDetailsPage() {
 
   return (
     <div className="scrap-details-page">
+      <SidebarPageButton/>
       <div className='individual-scrap-image'>
         {imageUrl ? (
           <img src={imageUrl} alt={scrapDetails.itemTitle} />

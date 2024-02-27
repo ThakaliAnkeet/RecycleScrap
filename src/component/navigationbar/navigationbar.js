@@ -1,23 +1,62 @@
-// NavBar.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import HomePage from '../homepage/homepage';
 import AboutPage from '../aboutpage/aboutpage';
-import ProductsPage from '../productpage/productpage';
 // import CartPage from '../Cartpage/Cartpage';
 import './navigationbar.css';
 import AddToCartPage from '../homepage/addToCart/addToCart';
 import CommunityPage from '../homepage/communityPage/communitypage';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, firestore } from '../../firebase/firebase';
+import OrdersPage from '../homepage/addToCart/order';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [profileImageExists, setProfileImageExists] = useState(false);
+
+
   const navigate = useNavigate();
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    setIsMenuOpen(false); // Close the menu when a tab is clicked
-  };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async(user) => {
+        setUser(user);
+        if (user) {
+            await getUser();
+        }
+    });
+    return () => unsubscribe();
+}, []);
+  const getUser = async () => {
+    const user = auth.currentUser;
+    const userRef = doc(firestore, 'Users', user.email);
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.profileImage) {
+            setImageUrl(userData.profileImage);
+            setProfileImageExists(true);
+        }
+    }
+}
+
+const handleTabClick = (tab) => {
+  setActiveTab(tab);
+  setIsMenuOpen(false);
+
+  switch (tab) {
+    case 'account-settings':
+      navigate('/edit-profile');
+      break;
+    case 'profile':
+      navigate('/profile');
+      break;
+    default:
+      break;
+  }
+};
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,6 +75,8 @@ const NavBar = () => {
         return <CommunityPage />;
       case 'cart':
         return <AddToCartPage />;
+      case 'order':
+        return <OrdersPage/>;
       default:
         return null;
     }
@@ -57,9 +98,16 @@ const NavBar = () => {
           <li className={activeTab === 'cart' ? 'active' : ''} onClick={() => handleTabClick('cart')}>
             Cart
           </li>
+          <li className={activeTab === 'order' ? 'active' : ''} onClick={() => handleTabClick('order')}>
+            Orders
+          </li>
         </ul>
         <div className='avatar-container' onClick={handleMenuToggle}>
-          <div className='avatar'></div>
+          {profileImageExists ? (
+            <img src={imageUrl} alt="Profile" className="avatar" />
+          ) : (
+            <div className="default-avatar"></div>
+          )}
         </div>
         {isMenuOpen && (
           <div className='menu-dialog'>
