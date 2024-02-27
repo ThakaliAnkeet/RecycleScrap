@@ -6,6 +6,7 @@ import { firestore, storage } from '../../../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from '../../loadingpage/loadingpage';
 
 function BuyScrapPage() {
   const [scrapList, setScrapList] = useState([]);
@@ -49,7 +50,7 @@ function BuyScrapPage() {
   }, []);
 
   if (loading) {
-    return <div className="scrap-loading">Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

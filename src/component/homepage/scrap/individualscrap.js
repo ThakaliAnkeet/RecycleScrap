@@ -6,6 +6,7 @@ import { firestore, storage,auth } from '../../../firebase/firebase';
 import { doc, getDoc,setDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 import SidebarPageButton from '../../navigationbar/sidebar';
+import LoadingPage from '../../loadingpage/loadingpage';
 
 function ScrapDetailsPage() {
   const { scrapId } = useParams();
@@ -89,7 +90,7 @@ function ScrapDetailsPage() {
   
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   if (!scrapDetails || Object.keys(scrapDetails).length === 0) {

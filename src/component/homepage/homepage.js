@@ -52,8 +52,8 @@ function HomePage() {
               <Link to="/sell-diy" className="action-button">
                 Sell Creations
               </Link>
-              <Link to="/buy-diy" className="action-button">
-                Explore DIY Creations
+              <Link to="/buy-scrap" className="action-button">
+                Buy Scrap Items
               </Link>
             </>
           ) : null}

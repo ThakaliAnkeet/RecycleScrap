@@ -3,8 +3,9 @@ import './addToCart.css';
 import { firestore, auth, storage } from '../../../firebase/firebase';
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
-
 import axios from 'axios';
+import KhaltiLogo from '../../../assets/KhaltiLogo.png';
+import LoadingPage from '../../loadingpage/loadingpage';
 
 function AddToCartPage() {
   const [customer,setCustomer]=useState('');
@@ -13,6 +14,7 @@ function AddToCartPage() {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState(null);
   const [checkoutPayload,setCheckoutPayload]=useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleCheckout = () => {
     setShowDialog(true);
@@ -35,30 +37,19 @@ function AddToCartPage() {
           customer_info: {
             name: userData.name,
             email: customer.email,
-            phone: "9844344807"
+            phone: phoneNumber // Use the entered phone number
           },
         };
         setCheckoutPayload(payload);
-  
-        let response;
-        let retryCount = 0;
-        const maxRetries = 3;
-        do {
-          try {
-            response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
-            if (response) {
-              window.location.href = `${response?.data?.data?.payment_url}`;
-              // Save order details to Firestore only after successful payment
-              return saveOrderToFirestore('khalti');
-            }
-          } catch (error) {
-            console.error('Error during checkout:', error);
-            retryCount++;
-            console.log(`Retrying (${retryCount}/${maxRetries})...`);
-          }
-        } while (retryCount < maxRetries);
-  
-        console.error('Exceeded maximum retry attempts. Please try again later.');
+        console.log(payload)
+        
+        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
+        console.log(response.data);
+        if (response) {
+          window.location.href = `${response?.data?.data?.payment_url}`;
+          // Save order details to Firestore only after successful payment
+          return saveOrderToFirestore('khalti');
+        }
       } else {
         console.error('User document not found for email:', customer.email);
       }
@@ -75,7 +66,8 @@ function AddToCartPage() {
     await saveOrderToFirestore(option);
     // You can implement further actions based on the selected option
     if(option === 'khalti') {
-      handleKhalti();
+      // If Khalti is selected, prompt user to enter phone number
+      setShowDialog(true);
     }
   };
 
@@ -116,14 +108,10 @@ function AddToCartPage() {
     }
   };
   
-  
-  
-  
-
   const initializeCartItems = (items) => {
     const initializedItems = items.map((item) => ({
       ...item,
-      quantity: 1, // You can set it to whatever initial quantity you prefer
+      quantity: 1,
     }));
     return initializedItems;
   };
@@ -208,7 +196,7 @@ function AddToCartPage() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   // Calculate total amount
@@ -216,6 +204,7 @@ function AddToCartPage() {
 
   return (
     <div className="add-to-cart-page">
+      
       <h1 className="page-title">Cart Items</h1>
       <div className="cart-items-container">
         {cartItems.map((item) => (
@@ -244,13 +233,29 @@ function AddToCartPage() {
         <div className="payment-dialog">
           <button className="close-btn" onClick={() => setShowDialog(false)}>Close</button>
           <h2>Select Payment Option</h2>
-          <button className='khalti-button' onClick={() => handlePaymentOptionSelect('khalti')}>Khalti</button>
+          <div className='payment-options'>
+          <img
+            className='khalti-button'
+            src={KhaltiLogo}
+            alt="Khalti"
+            onClick={() => handlePaymentOptionSelect('khalti')}
+          />
           <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
+          </div>
         </div>
       )}
-      {/* {selectedPaymentOption === 'khalti' && (
-
-      )} */}
+      {selectedPaymentOption === 'khalti' && showDialog && (
+        <div className="phone-dialog">
+          <h2>Enter Your Phone Number:</h2>
+          <input
+            type="text"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Phone Number"
+          />
+          <button onClick={handleKhalti}>Proceed to Payment</button>
+        </div>
+      )}
     </div>
   );
 }

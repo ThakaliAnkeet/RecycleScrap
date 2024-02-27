@@ -1,3 +1,5 @@
+/* addToCart.css */
+
 .add-to-cart-page {
   max-width: 1000px;
   margin: 0 auto;
@@ -88,7 +90,7 @@
 }
 
 .checkout-btn {
-  background-color: #007bff;
+  background-color: #2ebe68;
   color: white;
   border: none;
   padding: 14px 22px;
@@ -137,7 +139,7 @@
 }
 
 .payment-dialog button {
-  background-color: #007bff;
+  background-color: #2ebe68;
   color: white;
   border: none;
   padding: 14px 22px;
@@ -149,22 +151,68 @@
 }
 
 .payment-dialog button:hover {
-  background-color: #0056b3;
+  background-color: #15d461;
 }
 
 .khalti-button {
-  background-color: #42a53c;
-}
-
-.cod-button {
-  background-color: #f44336;
+  cursor: pointer;
+  width: 150px; 
+  height: auto; 
 }
 
 .khalti-button:hover {
-  background-color: #388233;
+  opacity: 0.8;
 }
+.cod-button {
+  background-color: #f44336;
+}
+.payment-options{
+  display: flex;
+  gap: 10px;
+}
+
 
 .cod-button:hover {
   background-color: #d32f2f;
 }
 
+/* Styles for the phone dialog */
+.phone-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  z-index: 9999;
+}
+
+.phone-dialog h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.phone-dialog input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.phone-dialog button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.phone-dialog button:hover {
+  background-color: #0056b3;
+}

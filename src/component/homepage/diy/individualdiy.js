@@ -6,6 +6,7 @@ import { firestore, storage,auth } from '../../../firebase/firebase';
 import { doc, getDoc,setDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 import SidebarPageButton from '../../navigationbar/sidebar';
+import LoadingPage from '../../loadingpage/loadingpage';
 function DiyDetailsPage() {
   const { diyId } = useParams();
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ function DiyDetailsPage() {
     navigate(`/add-diy-review/${diyId}`);
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
   if (!diyDetails || Object.keys(diyDetails).length === 0) {
     return <div>Error: diy details not found</div>;

@@ -3,6 +3,9 @@ import { auth, firestore } from "../../firebase/firebase";
 import { Link } from "react-router-dom"; // Assuming you're using React Router
 import './profilepage.css'
 import { doc, getDoc } from "firebase/firestore";
+import defaultImage from '../../assets/defaultimage.png';
+import LoadingPage from "../loadingpage/loadingpage";
+
 
 function ProfilePage(){
     const [user, setUser] = useState(null);
@@ -14,7 +17,7 @@ function ProfilePage(){
             const userRef = doc(firestore, 'Users', userauth.email);
             const userDoc = await getDoc(userRef);
             if (userDoc.exists()) {
-                const userData=userDoc.data();
+                const userData = userDoc.data();
                 setUser(userData);
             }
         }
@@ -30,13 +33,16 @@ function ProfilePage(){
     }, []);
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <LoadingPage/>;
     }
+
+    // Check if user profile image exists, if not, use defaultImage
+    const profileImage = user.profileImage ? user.profileImage : defaultImage;
 
     return (
         <div className="profile-page">
             <div className="profile-info">
-                <img src={user.profileImage} alt="Profile" className="profile-image" />
+                <img src={profileImage} alt="Profile" className="profile-image" />
                 <h2>Welcome, {user.name}</h2>
                 <p>Email: {user.email}</p>
                 <p>Role: {user.role}</p>

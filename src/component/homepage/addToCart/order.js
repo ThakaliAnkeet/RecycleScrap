@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './order.css';
 import { firestore, auth } from '../../../firebase/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import LoadingPage from '../../loadingpage/loadingpage';
 
 function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -33,7 +34,7 @@ function OrdersPage() {
     <div className="orders-page">
       <h1 className="page-title">Orders</h1>
       {loading ? (
-        <div>Loading...</div>
+        <LoadingPage/>
       ) : (
         <div className="orders-container">
           {orders.length === 0 ? (

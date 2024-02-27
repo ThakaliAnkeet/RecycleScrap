@@ -9,6 +9,7 @@ import CommunityPage from '../homepage/communityPage/communitypage';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, firestore } from '../../firebase/firebase';
 import OrdersPage from '../homepage/addToCart/order';
+import defaultImage from '../../assets/defaultimage.png';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -106,7 +107,7 @@ const handleTabClick = (tab) => {
           {profileImageExists ? (
             <img src={imageUrl} alt="Profile" className="avatar" />
           ) : (
-            <div className="default-avatar"></div>
+            <img src={defaultImage} alt="Prof" className="avatar" />
           )}
         </div>
         {isMenuOpen && (

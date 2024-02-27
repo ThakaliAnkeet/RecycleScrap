@@ -6,6 +6,7 @@ import { firestore, storage } from '../../../firebase/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from '../../loadingpage/loadingpage';
 
 function BuyDiyPage() {
   const [diyList, setdiyList] = useState([]);
@@ -48,7 +49,7 @@ function BuyDiyPage() {
   }, []);
 
   if (loading) {
-    return <div className="diy-loading">Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (
