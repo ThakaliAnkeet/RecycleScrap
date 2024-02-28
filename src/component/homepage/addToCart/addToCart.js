@@ -203,46 +203,56 @@ function AddToCartPage() {
 
   return (
     <div className="add-to-cart-page">
+      <header className="page-header">
+        <h1 className="page-title">Your Cart</h1>
+      </header>
       
-      <h1 className="page-title">Cart Items</h1>
       <div className="cart-items-container">
         {cartItems.map((item) => (
           <div className="cart-item" key={item.id}>
-            {item.imageUrl ? (
-              <img className="item-image" src={item.imageUrl} alt={item.itemTitle} />
-            ) : (
-              <p className="no-image">No Image Available</p>
-            )}
-            <h2 className="item-title">{item.itemTitle}</h2>
-            {/* <p className="item-description">{item.itemDescription}</p> */}
-            <p className="item-price">Price: Rs. {item.price}</p>
-            <p className="item-seller">Seller: {item.userName}</p>
-            <div className="item-counter">
-              <button className="counter-btn" onClick={() => decreaseQuantity(item)}> - </button>
-              <span className="quantity">{item.quantity}</span>
-              <button className="counter-btn" onClick={() => increaseQuantity(item)}> + </button>
+            <div className="item-image-container">
+              {item.imageUrl ? (
+                <img className="item-image" src={item.imageUrl} alt={item.itemTitle} />
+              ) : (
+                <p className="no-image">No Image Available</p>
+              )}
             </div>
-            <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
+            <div className="item-details">
+              <h2 className="item-title">{item.itemTitle}</h2>
+              <p className="item-price">Price: Rs. {item.price}</p>
+              <p className="item-seller">Sold by: {item.userName}</p>
+              <div className="item-counter">
+                <button className="counter-btn" onClick={() => decreaseQuantity(item)}> - </button>
+                <span className="quantity">{item.quantity}</span>
+                <button className="counter-btn" onClick={() => increaseQuantity(item)}> + </button>
+              </div>
+              <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
+            </div>
           </div>
         ))}
       </div>
-      <p className='total-amount'>Total Amount: Rs. {totalAmount}</p>
-      <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+      
+      <div className='total-amount-container'>
+        <p className='total-amount'>Total Amount: Rs. {totalAmount}</p>
+        <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+      </div>
+      
       {showDialog && (
         <div className="payment-dialog">
           <button className="close-btn" onClick={() => setShowDialog(false)}>Close</button>
           <h2>Select Payment Option</h2>
           <div className='payment-options'>
-          <img
-            className='khalti-button'
-            src={KhaltiLogo}
-            alt="Khalti"
-            onClick={() => handlePaymentOptionSelect('khalti')}
-          />
-          <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
+            <img
+              className='khalti-button'
+              src={KhaltiLogo}
+              alt="Khalti"
+              onClick={() => handlePaymentOptionSelect('khalti')}
+            />
+            <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
           </div>
         </div>
       )}
+
       {selectedPaymentOption === 'khalti' && showDialog && (
         <div className="phone-dialog">
           <h2>Enter Your Phone Number:</h2>

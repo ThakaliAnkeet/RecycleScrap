@@ -3,19 +3,11 @@ import { Link } from 'react-router-dom';
 import './homepage.css';
 import { auth, firestore } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import LoadingPage from '../loadingpage/loadingpage';
 
 function HomePage() {
   const [role, setRole] = useState('');
-
-  const getUser = async () => {
-    const user = auth.currentUser;
-    const userRef = doc(firestore, 'Users', user.email);
-    const userDoc = await getDoc(userRef);
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
-      setRole(userData.role);
-    }
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -24,8 +16,34 @@ function HomePage() {
       }
     });
     return () => unsubscribe();
-  }, [role]);
+  }, []);
 
+  const getUser = async () => {
+    const user = auth.currentUser;
+    const userRef = doc(firestore, 'Users', user.email);
+    try {
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setRole(userData.role);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const actionButtons = [
+    { role: ['Scrap Seller', 'Both'], link: '/buy-scrap', text: 'Buy Scrap' },
+    { role: ['Scrap Seller', 'Both'], link: '/sell-scrap', text: 'Sell Scrap' },
+    { role: ['Artist', 'Both'], link: '/sell-diy', text: 'Sell Creations' },
+    { role: ['Artist', 'Both'], link: '/buy-diy', text: 'Buy Creation Items' }
+  ];
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className='homepage-container'>
@@ -36,27 +54,13 @@ function HomePage() {
         </header>
 
         <section className="quick-actions">
-          {role === 'Scrap Seller' || role === 'Both' ? (
-            <>
-              <Link to="/buy-scrap" className="action-button">
-                Buy Scrap
+          {actionButtons.map((button, index) =>
+            (button.role.includes(role) &&
+              <Link key={index} to={button.link} className="action-button">
+                {button.text}
               </Link>
-              <Link to="/sell-scrap" className="action-button">
-                Sell Scrap
-              </Link>
-            </>
-          ) : null}
-
-          {role === 'Artist' || role === 'Both' ? (
-            <>
-              <Link to="/sell-diy" className="action-button">
-                Sell Creations
-              </Link>
-              <Link to="/buy-scrap" className="action-button">
-                Buy Scrap Items
-              </Link>
-            </>
-          ) : null}
+            )
+          )}
         </section>
       </div>
       <footer>

@@ -1,102 +1,107 @@
 /* buyscrap.css */
 
+/* Container Styles */
 .scrap-container {
-    padding: 20px;
-    background-color: #f0f4f8;
-  }
-  
-  .scrap-header {
-    text-align: center;
-    color: #2c3e50;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-  }
-  
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+
+/* Header Styles */
+.scrap-header {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 3rem;
+  margin-bottom: 40px;
+}
+
+/* Grid Layout Styles */
+.scrap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* Card Styles */
+.scrap-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.scrap-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.scrap-image-container {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.scrap-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.scrap-image:hover {
+  transform: scale(1.1);
+}
+
+/* Information Styles */
+.scrap-info {
+  padding: 25px;
+  text-align: center;
+}
+
+.scrap-title {
+  color: #34495e;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.scrap-description {
+  color: #555;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.scrap-price {
+  color: #e74c3c;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Details Styles */
+.scrap-details {
+  color: #666;
+  font-size: 1.1rem;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
   .scrap-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
   }
-  
-  .scrap-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  
-  .scrap-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .scrap-image-container {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-  }
-  
-  .scrap-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .scrap-image:hover {
-    transform: scale(1.1);
-  }
-  
-  .scrap-info {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .scrap-title {
-    color: black;
+}
 
-    font-size: 1.5rem;
-    margin-bottom: 5px;
+@media (max-width: 768px) {
+  .scrap-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
-  
-  .scrap-description {
-    color: black;
-    font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .scrap-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  
-  .scrap-details {
-    color: #464646;
-    font-size: 0.9rem;
-    border-top: 1px solid #ecf0f1;
-    padding-top: 3px;
-  }
-  .scrap-price{
-    color: #4CAF50;
-    font-weight: bolder;
-    font-size: 1rem;
-    margin-bottom: 15px;
-  }
-  
-  .scrap-user, .scrap-contact, .scrap-email, .scrap-location {
-    margin-bottom: 5px;
-  }
-  
-  .scrap-loading {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #2c3e50;
-  }
-  
-  /* Responsive layout for smaller screens */
-  @media (max-width: 768px) {
-    .scrap-item {
-      width: calc(50% - 20px); /* Two items per row with gap */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .scrap-item {
-      width: 100%; /* Full width on very small screens */
-    }
-  }
+}

@@ -32,7 +32,7 @@ const CommunityPage = () => {
       const docRef = await addDoc(collection(firestore, 'posts'), {
         content: newPostContent,
         userId: user.uid,
-        userEmail: user.email, // Add user's email to the post
+        userEmail: user.email,
         timestamp: new Date()
       });
       setNewPostContent('');
@@ -43,19 +43,19 @@ const CommunityPage = () => {
 
   return (
     <div className="community-page">
-      <h1>Community Page</h1>
+      <h1 className="title">Welcome to Our Community</h1>
       <form onSubmit={handlePostSubmit}>
         <textarea
           className="post-input"
           value={newPostContent}
           onChange={(e) => setNewPostContent(e.target.value)}
-          placeholder="Write your post..."
+          placeholder="Share your thoughts..."
           rows="4"
           cols="50"
         />
         <button type="submit" className="post-button">Post</button>
       </form>
-      <div>
+      <div className="posts-container">
         {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
@@ -89,7 +89,7 @@ const Post = ({ post }) => {
       await addDoc(collection(firestore, 'posts', post.id, 'comments'), {
         content: newCommentContent,
         userId: user.uid,
-        userEmail: user.email, // Add user's email to the comment
+        userEmail: user.email,
         timestamp: new Date()
       });
       setNewCommentContent('');
@@ -100,9 +100,9 @@ const Post = ({ post }) => {
 
   return (
     <div className="post">
-      <p>{post.content}</p>
-      <p className="post-timestamp">Posted by {post.userEmail} on: {post.timestamp.toDate().toLocaleString()}</p>
-      <button onClick={() => setShowComments(!showComments)}>
+      <p className="post-content">{post.content}</p>
+      <p className="post-details">Posted by {post.userEmail} on: {post.timestamp.toDate().toLocaleString()}</p>
+      <button className="comment-toggle" onClick={() => setShowComments(!showComments)}>
         {showComments ? 'Hide Comments' : 'Show Comments'}
       </button>
       {showComments && (
@@ -112,13 +112,13 @@ const Post = ({ post }) => {
               className="comment-input"
               value={newCommentContent}
               onChange={(e) => setNewCommentContent(e.target.value)}
-              placeholder="Write your comment..."
+              placeholder="Add a comment..."
               rows="2"
               cols="40"
             />
             <button type="submit" className="comment-button">Comment</button>
           </form>
-          <div>
+          <div className="comments">
             {comments.map((comment) => (
               <Comment key={comment.id} comment={comment} />
             ))}
@@ -132,8 +132,8 @@ const Post = ({ post }) => {
 const Comment = ({ comment }) => {
   return (
     <div className="comment">
-      <p>{comment.content}</p>
-      <p className="comment-timestamp">Commented by {comment.userEmail} on: {comment.timestamp.toDate().toLocaleString()}</p>
+      <p className="comment-content">{comment.content}</p>
+      <p className="comment-details">Commented by {comment.userEmail} on: {comment.timestamp.toDate().toLocaleString()}</p>
     </div>
   );
 };

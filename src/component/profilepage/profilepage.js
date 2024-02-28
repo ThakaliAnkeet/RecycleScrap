@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, firestore, changePassword } from "../../firebase/firebase";
 import { Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
@@ -50,13 +50,15 @@ function ProfilePage() {
 
     return (
         <div className="profile-page">
-            <div className="profile-info">
+            <div className="profile-header">
+                <h1 className="profile-title">Welcome, {user.name}</h1>
                 <img src={profileImage} alt="Profile" className="profile-image" />
-                <h2>Welcome, {user.name}</h2>
-                <p>Email: {user.email}</p>
-                <p>Role: {user.role}</p>
-                <button onClick={() => setShowChangePasswordDialog(true)}>Change Password</button>
-                <Link to="/edit-profile"><button>Edit Profile</button></Link>
+                <p className="profile-email">Email: {user.email}</p>
+                <p className="profile-role">Role: {user.role}</p>
+            </div>
+            <div className="profile-actions">
+                <button className="change-password-button" onClick={() => setShowChangePasswordDialog(true)}>Change Password</button>
+                <Link to="/edit-profile" className="edit-profile-link"><button className="edit-profile-button">Edit Profile</button></Link>
             </div>
             {showChangePasswordDialog && (
                 <ChangePasswordDialog

@@ -1,72 +1,96 @@
 /* sellscrap.css */
 
 .sell-diy-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  background-color: #6160609e;
+  text-align: center;
+  position: relative;
+}
+
+
+
+.sell-diy-container h1 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sell-diy-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.form-input {
+  width: calc(100% - 40px);
+  padding: 15px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-button {
+  background-color: #ff7e5f;
+  color: #fff;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #feb47b;
+}
+
+.form-input[type="file"] {
+  margin-bottom: 30px;
+}
+
+.error-message {
+  color: #ff4136;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 600px) {
+  .sell-diy-container {
+    width: 90%;
   }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .sell-diy-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-label {
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
+
   .form-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: calc(100% - 30px);
   }
-  
-  .form-button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .form-label {
     font-size: 16px;
   }
-  
-  .form-button:hover {
-    background-color: #45a049;
+
+  .form-input,
+  .form-button {
+    font-size: 16px;
   }
-  
-  .form-input[type="file"] {
-    margin-bottom: 15px;
-  }
-  
-  /* Responsive Design */
-  
-  @media (max-width: 600px) {
-    .sell-diy-container {
-      width: 90%;
-    }
-  }
-  
-  @media (max-width: 400px) {
-    .form-label {
-      font-size: 14px;
-    }
-  
-    .form-input,
-    .form-button {
-      font-size: 14px;
-    }
-  }
-  
+}
