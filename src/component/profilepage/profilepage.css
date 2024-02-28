@@ -1,11 +1,15 @@
 .profile-page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
 }
 
 .profile-info {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
     text-align: center;
 }
 
@@ -14,4 +18,40 @@
     height: 150px;
     border-radius: 50%;
     margin-bottom: 20px;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.profile-info button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.profile-info button:hover {
+    background-color: #0056b3;
+}
+
+.link-button {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.link-button:hover {
+    text-decoration: underline;
 }

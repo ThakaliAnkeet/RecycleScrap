@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { getFirestore, collection, addDoc,setDoc,doc } from "firebase/firestore";
 import {getStorage} from 'firebase/storage'
 import { sha256 } from "js-sha256";
@@ -16,7 +15,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
@@ -37,7 +35,6 @@ const registerWithEmailAndPassword = async (name, email, password,role) => {
     };
 
     await setDoc(userDocRef, userData);
-    console.log(userCredential.user);
     return userCredential.user;
   } catch (error) {
     // Handle errors
@@ -57,4 +54,26 @@ const loginWithEmailAndPassword = async (email, password) => {
     throw error;
   }
 };
-export { storage,auth,firestore,registerWithEmailAndPassword, loginWithEmailAndPassword };
+const changePassword = async (currentPassword, newPassword) => {
+  try {
+      const user = auth.currentUser;
+      if (!user) {
+          throw new Error('User is not authenticated.');
+      }
+
+      // Reauthenticate user
+      const credential = EmailAuthProvider.credential(user.email, currentPassword);
+      await reauthenticateWithCredential(user, credential);
+      // Update password
+      await updatePassword(user, newPassword);
+      console.log("Password changed successfully!");
+      return true;
+  } catch (error) {
+      console.error("Error changing password:", error);
+      throw error;
+  }
+};
+
+
+
+export { storage, auth, firestore, registerWithEmailAndPassword, loginWithEmailAndPassword, changePassword };

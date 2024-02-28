@@ -52,6 +52,8 @@ function DiyDetailsPage() {
       const cartItemDocRef = doc(firestore, 'UserCarts', `${userEmail}-${diyId}`);
       await setDoc(cartItemDocRef, { ...diyDetails, userEmail }); // Include userEmail in the document
       console.log('Item added to cart successfully!');
+      alert('Item added to cart successfully!');
+
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }

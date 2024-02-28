@@ -20,6 +20,7 @@ import CommunityPage from './component/homepage/communityPage/communitypage';
 import ProfilePage from './component/profilepage/profilepage';
 import EditProfilePage from './component/profilepage/editprofile';
 import OrdersPage from './component/homepage/addToCart/order';
+import ForgotPasswordPage from './auth/forgotpasswordpage';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
       <Route path="/home" element={<NavBar />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/sell-scrap" element={<SellScrapPage />} />
         <Route path="/sell-diy" element={<SellDIYPage />} />
         <Route path="/buy-scrap" element={<BuyScrapPage />} />

@@ -24,19 +24,19 @@ const SidebarPageButton = () => {
             </li>
             </Link>
 
-            <Link to="/community">
+            <Link className='custom-link' to="/community">
             <li>
               Community
             </li>
             </Link> 
 
-            <Link to="/order">
+            <Link className='custom-link' to="/order">
             <li>
               Order
             </li>
             </Link>
             
-            <Link to="/cart">
+            <Link className='custom-link' to="/cart">
             <li>
               Cart
             </li>

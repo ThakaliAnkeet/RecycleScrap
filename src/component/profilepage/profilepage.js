@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { auth, firestore } from "../../firebase/firebase";
-import { Link } from "react-router-dom"; // Assuming you're using React Router
-import './profilepage.css'
+import { auth, firestore, changePassword } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import defaultImage from '../../assets/defaultimage.png';
 import LoadingPage from "../loadingpage/loadingpage";
+import ChangePasswordDialog from "./changepassword";
+import './profilepage.css';
 
-
-function ProfilePage(){
+function ProfilePage() {
     const [user, setUser] = useState(null);
+    const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
 
     const getUser = async () => {
         const userauth = auth.currentUser;
         if (userauth && userauth.email) {
-            console.log(userauth.email)
             const userRef = doc(firestore, 'Users', userauth.email);
             const userDoc = await getDoc(userRef);
             if (userDoc.exists()) {
@@ -32,11 +32,20 @@ function ProfilePage(){
         return () => unsubscribe();
     }, []);
 
+    const handlePasswordChange = async (currentPassword, newPassword) => {
+        try {
+            await changePassword(currentPassword, newPassword);
+            setShowChangePasswordDialog(false);
+        } catch (error) {
+            console.error("Error changing password:", error);
+            alert("Error changing password: " + error.message);
+        }
+    };
+
     if (!user) {
-        return <LoadingPage/>;
+        return <LoadingPage />;
     }
 
-    // Check if user profile image exists, if not, use defaultImage
     const profileImage = user.profileImage ? user.profileImage : defaultImage;
 
     return (
@@ -46,8 +55,15 @@ function ProfilePage(){
                 <h2>Welcome, {user.name}</h2>
                 <p>Email: {user.email}</p>
                 <p>Role: {user.role}</p>
+                <button onClick={() => setShowChangePasswordDialog(true)}>Change Password</button>
                 <Link to="/edit-profile"><button>Edit Profile</button></Link>
             </div>
+            {showChangePasswordDialog && (
+                <ChangePasswordDialog
+                    onClose={() => setShowChangePasswordDialog(false)}
+                    onChangePassword={handlePasswordChange}
+                />
+            )}
         </div>
     );
 }

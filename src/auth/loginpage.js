@@ -67,7 +67,7 @@ const LoginPage = () => {
         </div>
 
         <div className="forgot-password">
-          <Link className='custom-link' to="/forgotpassword">Forgot Password?</Link>
+          <Link className='custom-link' to="/forgot-password">Forgot Password?</Link>
         </div>
         {loginError && (
           <div className="login-error">

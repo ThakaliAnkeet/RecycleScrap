@@ -28,7 +28,6 @@ function ScrapDetailsPage() {
           const imageRef = ref(storage, `Product_Image/Scraps/${data.email}/${data.imageName}`);
           const url = await getDownloadURL(imageRef);
           setImageUrl(url);
-          console.log('indicidual',url)
         } else {
           console.error('No such document!');
         }
@@ -83,6 +82,7 @@ function ScrapDetailsPage() {
       const cartItemDocRef = doc(firestore, 'UserCarts', `${userEmail}-${scrapId}`);
       await setDoc(cartItemDocRef, { ...scrapDetails, userEmail }); // Include userEmail in the document
       console.log('Item added to cart successfully!');
+      alert('Item added to cart successfully!');
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
