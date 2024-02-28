@@ -37,12 +37,11 @@ function AddToCartPage() {
           customer_info: {
             name: userData.name,
             email: customer.email,
-            phone: phoneNumber // Use the entered phone number
+            phone: phoneNumber
           },
         };
         setCheckoutPayload(payload);
         console.log(payload)
-        
         const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
         console.log(response.data);
         if (response) {
