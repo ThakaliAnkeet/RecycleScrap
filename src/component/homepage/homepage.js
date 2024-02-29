@@ -4,6 +4,7 @@ import './homepage.css';
 import { auth, firestore } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import LoadingPage from '../loadingpage/loadingpage';
+import recycle from '../../assets/recycle.jpg'
 
 function HomePage() {
   const [role, setRole] = useState('');
@@ -53,6 +54,9 @@ function HomePage() {
           <p>Your go-to platform for buying and selling recycled materials</p>
         </header>
 
+        <section className='recycle-image'>
+          <img src={recycle} alt='Recycle' />
+        </section>
         <section className="quick-actions">
           {actionButtons.map((button, index) =>
             (button.role.includes(role) &&

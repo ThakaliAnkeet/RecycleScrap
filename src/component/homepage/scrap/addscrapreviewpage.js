@@ -1,15 +1,15 @@
-// AddReviewPage.js
 import React, { useState } from 'react';
 import './addReviewPage.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { firestore, auth } from '../../../firebase/firebase';
-import { doc, updateDoc,getDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 function AddScrapReviewPage() {
   const { scrapId } = useParams();
-  const navigate = useNavigate(); // Using useNavigate instead of useHistory
-  const [rating, setRating] = useState(0); // 0 initially, as no rating is given
+  const navigate = useNavigate();
+  const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
+  const [error, setError] = useState('');
 
   const handleRatingClick = (selectedRating) => {
     setRating(selectedRating);
@@ -17,43 +17,45 @@ function AddScrapReviewPage() {
 
   const handleAddReview = async () => {
     try {
-        const user = auth.currentUser;
-        const userEmail = user ? user.email : 'unknown';
-        const formattedReview = `${userEmail}-${rating}-${review}`;
-        const scrapDocRef = doc(firestore, 'ScrapsData', scrapId);
+      if (rating === 0 || review.trim() === '') {
+        setError('Please provide both a rating and a review.');
+        return;
+      }
 
-        // Fetch current scrap details to get the existing reviews
-        const scrapSnap = await getDoc(scrapDocRef);
-        if (scrapSnap.exists()) {
-            const currentScrapDetails = scrapSnap.data();
-            let updatedReviews = [];
+      const user = auth.currentUser;
+      const userEmail = user ? user.email : 'unknown';
+      const formattedReview = `${userEmail}-${rating}-${review}`;
+      const scrapDocRef = doc(firestore, 'ScrapsData', scrapId);
 
-            if (currentScrapDetails.ratingAndReview && Array.isArray(currentScrapDetails.ratingAndReview)) {
-                updatedReviews = [
-                    ...currentScrapDetails.ratingAndReview,
-                    formattedReview,
-                ];
-            } else {
-                updatedReviews = [formattedReview];
-            }
+      const scrapSnap = await getDoc(scrapDocRef);
+      if (scrapSnap.exists()) {
+        const currentScrapDetails = scrapSnap.data();
+        let updatedReviews = [];
 
-            // Update the Firestore document with the new review
-            await updateDoc(scrapDocRef, {
-                ratingAndReview: updatedReviews,
-            });
-
-            // Redirect back to the scrap details page
-            navigate(`/scrap/${scrapId}`);
+        if (currentScrapDetails.ratingAndReview && Array.isArray(currentScrapDetails.ratingAndReview)) {
+          updatedReviews = [
+            ...currentScrapDetails.ratingAndReview,
+            formattedReview,
+          ];
+        } else {
+          updatedReviews = [formattedReview];
         }
-    } catch (error) {
-        console.error('Error adding review:', error);
-    }
-};
 
+        await updateDoc(scrapDocRef, {
+          ratingAndReview: updatedReviews,
+        });
+
+        navigate(`/scrap/${scrapId}`);
+      }
+    } catch (error) {
+      console.error('Error adding review:', error);
+    }
+  };
 
   return (
     <div className="add-review-page">
       <h1>Add Review</h1>
+      {error && <p className="error-message">{error}</p>}
       <div className="rating-container">
         <p>Select your rating:</p>
         {[1, 2, 3, 4, 5].map((star) => (

@@ -1,15 +1,15 @@
-// AddReviewPage.js
 import React, { useState } from 'react';
 import './addDiyReviewpage.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { firestore, auth } from '../../../firebase/firebase';
-import { doc, updateDoc,getDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 function AddDiyReviewPage() {
   const { diyId } = useParams();
-  const navigate = useNavigate(); // Using useNavigate instead of useHistory
-  const [rating, setRating] = useState(0); // 0 initially, as no rating is given
+  const navigate = useNavigate();
+  const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
+  const [error, setError] = useState('');
 
   const handleRatingClick = (selectedRating) => {
     setRating(selectedRating);
@@ -17,43 +17,45 @@ function AddDiyReviewPage() {
 
   const handleAddReview = async () => {
     try {
-        const user = auth.currentUser;
-        const userEmail = user ? user.email : 'unknown';
-        const formattedReview = `${userEmail}-${rating}-${review}`;
-        const diyDocRef = doc(firestore, 'DIYData', diyId);
+      if (rating === 0 || review.trim() === '') {
+        setError('Please provide both a rating and a review.');
+        return;
+      }
 
-        // Fetch current diy details to get the existing reviews
-        const diySnap = await getDoc(diyDocRef);
-        if (diySnap.exists()) {
-            const currentDiyDetails = diySnap.data();
-            let updatedReviews = [];
+      const user = auth.currentUser;
+      const userEmail = user ? user.email : 'unknown';
+      const formattedReview = `${userEmail}-${rating}-${review}`;
+      const diyDocRef = doc(firestore, 'DIYData', diyId);
 
-            if (currentDiyDetails.ratingAndReview && Array.isArray(currentDiyDetails.ratingAndReview)) {
-                updatedReviews = [
-                    ...currentDiyDetails.ratingAndReview,
-                    formattedReview,
-                ];
-            } else {
-                updatedReviews = [formattedReview];
-            }
+      const diySnap = await getDoc(diyDocRef);
+      if (diySnap.exists()) {
+        const currentDiyDetails = diySnap.data();
+        let updatedReviews = [];
 
-            // Update the Firestore document with the new review
-            await updateDoc(diyDocRef, {
-                ratingAndReview: updatedReviews,
-            });
-
-            // Redirect back to the diy details page
-            navigate(`/diy/${diyId}`);
+        if (currentDiyDetails.ratingAndReview && Array.isArray(currentDiyDetails.ratingAndReview)) {
+          updatedReviews = [
+            ...currentDiyDetails.ratingAndReview,
+            formattedReview,
+          ];
+        } else {
+          updatedReviews = [formattedReview];
         }
-    } catch (error) {
-        console.error('Error adding review:', error);
-    }
-};
 
+        await updateDoc(diyDocRef, {
+          ratingAndReview: updatedReviews,
+        });
+
+        navigate(`/diy/${diyId}`);
+      }
+    } catch (error) {
+      console.error('Error adding review:', error);
+    }
+  };
 
   return (
     <div className="add-review-page">
       <h1>Add Review</h1>
+      {error && <p className="error-message">{error}</p>}
       <div className="rating-container">
         <p>Select your rating:</p>
         {[1, 2, 3, 4, 5].map((star) => (

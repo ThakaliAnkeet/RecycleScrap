@@ -26,6 +26,7 @@ function AddToCartPage() {
     try {
       const userRef = doc(firestore, 'Users', customer.email);
       const userDoc = await getDoc(userRef);
+      console.log('heklo',userDoc.data());
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const payload = {
@@ -37,7 +38,7 @@ function AddToCartPage() {
           customer_info: {
             name: userData.name,
             email: customer.email,
-            phone: phoneNumber
+            phone: '9844344807'
           },
         };
         setCheckoutPayload(payload);
@@ -66,7 +67,7 @@ function AddToCartPage() {
     // You can implement further actions based on the selected option
     if(option === 'khalti') {
       // If Khalti is selected, prompt user to enter phone number
-      setShowDialog(true);
+      await handleKhalti();
     }
   };
 
@@ -250,19 +251,6 @@ function AddToCartPage() {
             />
             <button className='cod-button' onClick={() => handlePaymentOptionSelect('Cash on Delivery')}>Cash on Delivery</button>
           </div>
-        </div>
-      )}
-
-      {selectedPaymentOption === 'khalti' && showDialog && (
-        <div className="phone-dialog">
-          <h2>Enter Your Phone Number:</h2>
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="Phone Number"
-          />
-          <button onClick={handleKhalti}>Proceed to Payment</button>
         </div>
       )}
     </div>
