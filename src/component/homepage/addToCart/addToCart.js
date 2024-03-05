@@ -26,7 +26,6 @@ function AddToCartPage() {
     try {
       const userRef = doc(firestore, 'Users', customer.email);
       const userDoc = await getDoc(userRef);
-      console.log('heklo',userDoc.data());
       if (userDoc.exists()) {
         const userData = userDoc.data();
         const payload = {
@@ -43,9 +42,10 @@ function AddToCartPage() {
         };
         setCheckoutPayload(payload);
         console.log(payload)
-        const response = await axios.post('https://recyclescrap.onrender.com/khalti-api', checkoutPayload);
+        const response = await axios.post('http://localhost:8000/khalti-api', checkoutPayload);
         console.log(response.data);
         if (response) {
+          console.log('response',response)
           window.location.href = `${response?.data?.data?.payment_url}`;
           // Save order details to Firestore only after successful payment
           return saveOrderToFirestore('khalti');

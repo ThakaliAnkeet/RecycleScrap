@@ -21,6 +21,8 @@ import ProfilePage from './component/profilepage/profilepage';
 import EditProfilePage from './component/profilepage/editprofile';
 import OrdersPage from './component/homepage/addToCart/order';
 import ForgotPasswordPage from './auth/forgotpasswordpage';
+import GroupsPage from './component/homepage/communityPage/groupspage';
+import GroupPosts from './component/homepage/communityPage/grouppostspage';
 
 const App = () => {
   return (
@@ -44,7 +46,8 @@ const App = () => {
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/edit-profile' element={<EditProfilePage />} />
         <Route path='/order' element={<OrdersPage />} />
-
+        <Route path='/groups' element={<GroupsPage />} />
+        <Route path='/groupposts/:groupId' element={<GroupPosts />} />
       </Routes>
     </BrowserRouter>
   );

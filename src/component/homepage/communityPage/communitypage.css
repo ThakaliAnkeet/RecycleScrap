@@ -19,7 +19,9 @@
   border-radius: 5px;
 }
 
-.post-button, .comment-button {
+.post-button,
+.comment-button,
+.dialog-button {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
@@ -28,8 +30,11 @@
   cursor: pointer;
 }
 
-.post-button:hover, .comment-button:hover {
+.post-button:hover,
+.comment-button:hover,
+.dialog-button:hover {
   background-color: #0056b3;
+  transform: translateY(-5px);
 }
 
 .posts-container {
@@ -49,7 +54,8 @@
   margin-bottom: 10px;
 }
 
-.post-details, .comment-details {
+.post-details,
+.comment-details {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 5px;
@@ -86,4 +92,80 @@
 .comment-details {
   font-size: 0.8rem;
   color: #777;
+}
+.create-group-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4caf50;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.create-group-dialog form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-group-dialog input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.create-group-dialog button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.create-group-dialog button:hover {
+  background-color: #45a049;
+}
+
+.join-group{
+  padding: 5px 12px;
+  background-color: #28629f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.join-group:hover{
+  background-color: #003e6f;
+  transform: translateY(-5px);
+}
+.groups-button{
+  padding: 5px 12px;
+  background-color: #28629f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.groups-button:hover{
+  background-color: #003e6f;
+  transform: translateY(-5px);
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
