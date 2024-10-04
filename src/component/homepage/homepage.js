@@ -47,7 +47,8 @@ function HomePage() {
   }
 
   return (
-    <div className='homepage-container'>
+    <div className='homepage'>
+      <div className='homepage-container'>
       <div className="home-page">
         <header>
           <h1 className='home-header'>Welcome Back!</h1>
@@ -70,6 +71,7 @@ function HomePage() {
       <footer>
         <p>&copy; 2024 Recycle Scrap. All rights reserved.</p>
       </footer>
+    </div>
     </div>
   );
 }

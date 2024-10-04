@@ -4,21 +4,26 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f8f8f8; /* Background color for the entire page */
+  background-color: #f4f7f6; /* Background color for the entire page */
 }
+.homepage{
+  background: linear-gradient(to right, #017a01, #f1f2dc);
+  min-height: 100vh;
 
+}
 .home-page {
   text-align: center;
   padding: 20px;
+  
 }
 
 .home-header {
-  color: white;
+  color: #f4f7f6;
 }
 
 .home-page header {
-  background: linear-gradient(45deg, #4CAF50, #2ebe68); /* Green gradient */
-  color: white;
+  background: linear-gradient(45deg, #017a01, #02ae02); /* Green gradient */
+  color: #f4f7f6;
   padding: 20px;
   border-radius: 0 0 20px 20px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Drop shadow */
@@ -47,9 +52,9 @@ body {
 
 .action-button {
   text-decoration: none;
-  background-color: #2ebe68;
-  background-image: linear-gradient(45deg, #2ebe68, #0c9f47); /* Button gradient */
-  color: white;
+  background-color: #017a01;
+  background-image: linear-gradient(45deg, #017a01, #02ae02); 
+  color: #f4f7f6;
   padding: 15px 30px;
   border-radius: 30px; /* Rounded button */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Button shadow */
@@ -59,11 +64,20 @@ body {
 .action-button:hover {
   transform: translateY(-5px); /* Button hover effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Button hover shadow */
+  background-image: linear-gradient(45deg,#02ae02, #017a01); 
 }
-
+@media screen and (max-width: 675px) {
+  .quick-actions {
+    flex-direction: column;
+    gap: 2pc;
+  }
+  .action-button{
+    /* width:; */
+  }
+}
 footer {
   background: #333;
-  color: white;
+  color: #f4f7f6;
   padding: 20px;
   position: fixed;
   bottom: 0;

@@ -1,12 +1,15 @@
 /* sellscrap.css */
-
+.sell-scrap-page {
+  background: linear-gradient(to right, #017a01, #f1f2dc);
+  padding: 20px;
+}
 .sell-scrap-container {
   max-width: 600px;
   margin: 50px auto;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  background-color: #6160609e;
+  background-color: #5abe5a;
   text-align: center;
   position: relative;
 }
@@ -39,15 +42,15 @@
   margin-bottom: 30px;
   border: none;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #f4f7f6(255, 255, 255, 0.8);
   font-size: 16px;
   color: #333;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-button {
-  background-color: #6e48aa;
-  color: #fff;
+  background-color: #017a01;
+  color: #f4f7f6;
   padding: 15px 40px;
   border: none;
   border-radius: 8px;
@@ -58,7 +61,7 @@
 }
 
 .form-button:hover {
-  background-color: #8e44ad;
+  background-color: #02ae02;
 }
 
 .form-input[type="file"] {

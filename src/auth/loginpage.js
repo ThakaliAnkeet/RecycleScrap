@@ -4,6 +4,7 @@ import './loginpage.css'; // Import specific CSS module for the login page
 import { Link,useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import loginImage from '../assets/login-page-side.png';
+import logo from '../assets/logo.png';
 import {loginWithEmailAndPassword} from '../firebase/firebase'
 
 // Functional component for the login page
@@ -26,12 +27,11 @@ const LoginPage = () => {
       setLoginError(error);
     }
   };
-  
 
   return (
     <div className='login-page'>
       <div className='login-image'>
-        <img src={loginImage} alt='img.jpg'/>
+        <img src={logo} alt='img.jpg'/>
       </div>
       <div className="login-container">
       <h2 className='login'>Welcome Back</h2>

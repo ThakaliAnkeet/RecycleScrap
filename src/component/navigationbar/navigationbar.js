@@ -84,7 +84,8 @@ const handleTabClick = (tab) => {
   };
 
   return (
-    <div className='navigation-container'>
+    <div className='homepage'>
+      <div className='navigation-container'>
       <nav className='navigation'>
         <ul>
           <li className={activeTab === 'home' ? 'active' : ''} onClick={() => handleTabClick('home')}>
@@ -121,6 +122,7 @@ const handleTabClick = (tab) => {
         )}
       </nav>
       {renderPage()}
+    </div>
     </div>
   );
 };

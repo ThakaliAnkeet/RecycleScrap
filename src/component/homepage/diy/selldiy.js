@@ -111,7 +111,8 @@ function SellDIYPage() {
   
   
   return (
-    <div className="sell-diy-container">
+    <div className="sell-diy-page">
+      <div className="sell-diy-container">
       <h1>Sell Your Creations</h1>
       <form className="sell-diy-form" onSubmit={handleSubmit}>
         <label className="form-label">
@@ -190,6 +191,7 @@ function SellDIYPage() {
         </button>
       </form>
     </div>
+     </div> 
   );
 }
 

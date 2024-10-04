@@ -1,12 +1,15 @@
-/* sellscrap.css */
-
+/* sellsdiy.css */
+.sell-diy-page {
+  background: linear-gradient(to right, #017a01, #f1f2dc);
+  padding: 20px;
+}
 .sell-diy-container {
   max-width: 600px;
   margin: 50px auto;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  background-color: #6160609e;
+  background-color: #5abe5a;
   text-align: center;
   position: relative;
 }
@@ -47,7 +50,7 @@
 }
 
 .form-button {
-  background-color: #ff7e5f;
+  background-color: #017a01;
   color: #fff;
   padding: 15px 40px;
   border: none;
@@ -59,7 +62,7 @@
 }
 
 .form-button:hover {
-  background-color: #feb47b;
+  background-color: #02ae02;
 }
 
 .form-input[type="file"] {

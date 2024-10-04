@@ -1,8 +1,8 @@
 /* landingpage.css */
 
 body {
-    margin: 0;
-    padding: 0;
+    /* margin: 0; */
+    /* padding: 0; */
     font-family: 'Arial', sans-serif;
   }
   .landing-container{
@@ -14,15 +14,16 @@ body {
   }
   
   .landing-page header {
-    background-color: #4CAF50; /* Green color (you can change it to your preferred color) */
+    background-color: #017a01;
     color: white;
     padding: 20px;
+    /* width: 100%; */
   }
   
   .lanmding-page header h1 {
     margin: 0;
   }
-  
+ 
   .features {
     display: flex;
     justify-content: space-around;
@@ -37,14 +38,25 @@ body {
     margin: 0 10px;
   }
   
+  @media screen and (max-width: 561px) {
+    .features {
+      flex-direction: column;
+
+    }
+    
+  }
   .creator-section {
-    background-color: #f4f4f4; /* Background color for the creator section */
-    padding: 20px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 40px;
   }
   
   .register-section {
-    background-color: #e6e6e6; /* Background color for the registration section */
-    padding: 20px;
+    background-color: #e6e6e6;
+    padding: 40px;
+    margin-bottom: 30px;
   }
   
   footer {

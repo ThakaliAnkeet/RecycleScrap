@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './registerpage.css';
 import loginImage from '../assets/login.jpg';
+import logo from '../assets/logo.png';
 import { registerWithEmailAndPassword } from '../firebase/firebase';
 
 const RegisterPage = () => {
@@ -49,7 +50,7 @@ const RegisterPage = () => {
   return (
     <div className='register-page'>
       <div className='register-image'>
-        <img src={loginImage} alt='img.jpg' />
+        <img src={logo} alt='img.jpg' />
       </div>
       <div className="register-container">
         <h2>Create an Account</h2>

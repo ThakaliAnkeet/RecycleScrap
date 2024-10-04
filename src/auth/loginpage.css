@@ -1,27 +1,38 @@
 /* loginpage.css */
 body{
   font-family:sans-serif ;
-  /* overflow-y: hidden; */
   user-select: none;
 }
+html, body { height: 100%;   width: 100%; margin: 0; padding: 0; }
+
 .login-page{
-  height: 50pc;
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  background: linear-gradient(to right, #5ddc85, #f1f2dc);
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, #017a01, #f1f2dc);
 }
 .login-container {
   max-width: 400px;
-  margin: 10pc auto;
+  margin: 1pc auto;
   padding: 20px;
   box-shadow: 8px 1px 8px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  background-color: #b8e8ba;
+  background-color: #5abe5a;
+}
+.login-image{
+  width: 269px;
+  height: 273px;
+}
+.login-image img{
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
 }
 
 .login {
   text-align: center;
-  color: #ffffffd4; /* Google Blue */
+  color: #f4f7f6;
 }
 
 .login-form {
@@ -32,14 +43,14 @@ body{
 .email-label,
 .password-label {
   margin-bottom: 6px;
-  color: #ffffffd4;
+  color: #f4f7f6;
 }
 
 .login-email,
 .login-password {
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #f4f7f6;
   border-radius: 4px;
 }
 
@@ -51,8 +62,8 @@ body{
 
 .login-button {
   margin-top: 10px;
-  background-color: #2ebe68;
-  color: #fff;
+  background-color: #017a01;
+  color: #f4f7f6;
   padding: 10px;
   border: none;
   border-radius: 4px;
@@ -62,14 +73,17 @@ body{
 }
 
 .login-button:hover {
-  background-color: #4bd081; /* Darker Google Blue */
+  background-color: #02ae02; 
 }
 .custom-link{
   text-decoration: none;
-  color: #2ebe68;
+  color: #017a01;
+  font-weight: bolder;
+
 }
 .custom-link:hover{
-  color: #5ddc85;
+  color: #017a01;
+  font-weight: bolder;
 }
 .password-input-container {
   display: flex;

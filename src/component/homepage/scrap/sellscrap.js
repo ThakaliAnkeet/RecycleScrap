@@ -111,7 +111,8 @@ function SellScrapPage() {
   
   
   return (
-    <div className="sell-scrap-container">
+    <div className='sell-scrap-page'>
+      <div className="sell-scrap-container">
       <h1>Sell Your Scrap</h1>
       <form className="sell-scrap-form" onSubmit={handleSubmit}>
         <label className="form-label">
@@ -189,6 +190,7 @@ function SellScrapPage() {
           Submit
         </button>
       </form>
+    </div>
     </div>
   );
 }
