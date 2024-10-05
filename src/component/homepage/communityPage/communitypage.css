@@ -23,7 +23,7 @@
 .comment-button,
 .dialog-button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #017a01;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -33,7 +33,7 @@
 .post-button:hover,
 .comment-button:hover,
 .dialog-button:hover {
-  background-color: #0056b3;
+  background-color: #02ae02;
   transform: translateY(-5px);
 }
 
@@ -64,12 +64,13 @@
 .comment-toggle {
   background-color: transparent;
   border: none;
-  color: #007bff;
+  color: #017a01;
   cursor: pointer;
 }
 
 .comment-toggle:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color: #02ae02;
 }
 
 .comments {
@@ -98,7 +99,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #4caf50;
+  background-color: #5abe5a;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -121,7 +122,7 @@
 
 .create-group-dialog button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #017a01;
   color: white;
   border: none;
   border-radius: 4px;
@@ -132,24 +133,24 @@
 }
 
 .create-group-dialog button:hover {
-  background-color: #45a049;
+  background-color: #02ae02;
 }
 
 .join-group{
   padding: 5px 12px;
-  background-color: #28629f;
+  background-color: #017a01;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 .join-group:hover{
-  background-color: #003e6f;
+  background-color: #02ae02;
   transform: translateY(-5px);
 }
 .groups-button{
   padding: 5px 12px;
-  background-color: #28629f;
+  background-color: #017a01;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -157,7 +158,7 @@
   margin-left: 10px;
 }
 .groups-button:hover{
-  background-color: #003e6f;
+  background-color: #02ae02;
   transform: translateY(-5px);
 }
 .overlay {

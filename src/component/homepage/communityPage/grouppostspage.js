@@ -102,7 +102,8 @@ const GroupPosts = () => {
   };
 
   return (
-    <div className="container">
+    <div className='group-post-page'>
+      <div className="container">
       <h1 className="title">Group Posts</h1>
       <form onSubmit={handlePostSubmit}>
         <textarea
@@ -149,6 +150,7 @@ const GroupPosts = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

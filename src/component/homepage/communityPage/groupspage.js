@@ -31,7 +31,8 @@ const GroupsPage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className='groups-page'>
+      <div className="container">
       <h1 className="title">Groups</h1>
       <ul className="group-list">
         {groups.map((group) => (
@@ -44,6 +45,7 @@ const GroupsPage = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

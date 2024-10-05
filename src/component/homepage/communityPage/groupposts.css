@@ -4,20 +4,22 @@ body {
     margin: 0;
     padding: 0;
   }
-  
+  .group-post-page{
+    background: linear-gradient(to right, #017a01, #f1f2dc);
+
+  }
   .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .title {
     text-align: center;
     font-size: 2.5rem;
-    color: #333;
+    color: #f4f7f6;
     margin-bottom: 30px;
   }
   
@@ -25,21 +27,21 @@ body {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #f4f7f6;
     border-radius: 5px;
   }
   
   .button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #017a01;
+    color: #f4f7f6;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   
   .button:hover {
-    background-color: #0056b3;
+    background-color: #02ae02;
   }
   
   .post-list {
@@ -48,7 +50,7 @@ body {
   }
   
   .post-item {
-    background-color: #f0f0f0;
+    background-color: #5abe5a;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -94,13 +96,15 @@ body {
   .show-comment {
     padding: 5px 12px;
     /* background-color: #007bff; */
-    text-decoration: underline;
-    color: #007bff;
+    text-decoration: none;
+    color: #f4f7f6;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: transparent;
   }
   
   .show-comment:hover {
     transform: translateY(-5px);
+    color: #f4f7f6;
   }  
