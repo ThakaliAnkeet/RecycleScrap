@@ -53,7 +53,7 @@ function HomePage() {
       <div className='homepage-container'>
         
       <div className="home-page">
-      <AdBanner />Hello<AdBanner/>
+      <AdBanner />
         <header>
           <h1 className='home-header'>Welcome Back!</h1>
           <p>Your go-to platform for buying and selling recycled materials</p>
@@ -61,7 +61,7 @@ function HomePage() {
         <section className='recycle-image'>
           <img src={recycle} alt='Recycle' />
         </section>
-        <AdBanner />Hello<AdBanner/>
+        <AdBanner />
         <section className="quick-actions">
           {actionButtons.map((button, index) =>
             (button.role.includes(role) &&
@@ -71,7 +71,7 @@ function HomePage() {
             )
           )}
         </section>
-        <AdBanner />Hello<AdBanner/>
+        <AdBanner />
       </div>
       <footer>
         <p>&copy; 2024 Recycle Scrap. All rights reserved.</p>
