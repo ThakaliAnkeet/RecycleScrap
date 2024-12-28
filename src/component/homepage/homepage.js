@@ -5,6 +5,7 @@ import { auth, firestore } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import LoadingPage from '../loadingpage/loadingpage';
 import recycle from '../../assets/recycle.jpg'
+import AdBanner from '../../ads/adcomponent';
 
 function HomePage() {
   const [role, setRole] = useState('');
@@ -48,16 +49,19 @@ function HomePage() {
 
   return (
     <div className='homepage'>
+      
       <div className='homepage-container'>
+        
       <div className="home-page">
+      <AdBanner />Hello<AdBanner/>
         <header>
           <h1 className='home-header'>Welcome Back!</h1>
           <p>Your go-to platform for buying and selling recycled materials</p>
         </header>
-
         <section className='recycle-image'>
           <img src={recycle} alt='Recycle' />
         </section>
+        <AdBanner />Hello<AdBanner/>
         <section className="quick-actions">
           {actionButtons.map((button, index) =>
             (button.role.includes(role) &&
@@ -67,6 +71,7 @@ function HomePage() {
             )
           )}
         </section>
+        <AdBanner />Hello<AdBanner/>
       </div>
       <footer>
         <p>&copy; 2024 Recycle Scrap. All rights reserved.</p>
